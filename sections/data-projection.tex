@@ -1,0 +1,42 @@
+\section{Data Projection}
+Consider the following matrix multiplication
+\begin{equation*}
+    Z = XV
+\end{equation*}
+where $X$ = $(\mathbf{x}_1\ \cdots\ \mathbf{x}_n)^{\top}$ is $n \times p$ and $V$ is $p \times p$.
+\begin{equation}
+    Z = XV =\begin{bmatrix}
+        \mathbf{x}_1^{\top} V\\
+        \vdots\\
+        \mathbf{x}_n^{\top} V\\
+    \end{bmatrix}  = 
+    \begin{bmatrix}
+        \mathbf{z}^{(1)}\\
+        \vdots\\
+        \mathbf{z}^{(n)}
+    \end{bmatrix}
+\end{equation}
+$\mathbf{z}^{(i)} = \mathbf{x}_{i}^{\top} V$ can be considered as a linear combination of rows of $V$ using the entries in $\mathbf{x}_i^{\top}$ as weights. This implies
+\begin{equation*}
+    \mathbf{x}_i = V^{\top}(\mathbf{z}^{(i)})^{\top}
+\end{equation*}
+$(\mathbf{z}^{(i)})^{\top}$ is the coordinate of $\mathbf{x}_i$ relative to the rows of $V$. Furthermore, the $j^{\text{th}}$ entry, $z_{ij} =  \mathbf{x}_i^{\top} \mathbf{v}_j$, in $(\mathbf{z}^{(i)})^{\top}$ is the scalar projection of $\mathbf{x}_i^{\top}$ on $\mathbf{v}_j$ or on $\text{span}(\mathbf{v}_j)$. Looking at (11), let $X_j = X\mathbf{v}_j \otimes \mathbf{v}_j$ and $\mathbf{x}_j^{(i)}$ be the $i^{\text{th}}$ row of $X_j$, then
+\begin{equation*}
+    \mathbf{x}_j^{(i)} = \mathbf{x}_i^\top\mathbf{v}_j\mathbf{v}_j^{\top} = z_{ij}\mathbf{v}_j^{\top}
+\end{equation*}
+which is the projection vector of $\mathbf{x}_i^{\top}$ on $\mathbf{v}_j$.
+That is, \textbf{the rows of $X_j$ are the vector projections of rows of $X$ on $\mathbf{v}_j^{\top}$}.
+
+\noindent Since all the rows of $X_j$ are the projections on $\mathbf{v}_{j}^{\top}$, we have
+\begin{equation*}
+    \text{rank}(\mathbf{v}_j \otimes \mathbf{v}_j) =1 \Longrightarrow \text{rank}(X_j) = 1
+\end{equation*}
+All data points (or rows) of $X_j$ are on the line that goes through the origin and vector $\mathbf{v}_j^{\top}$. It says that we can restore $XV$ to $X$ by right-multiplying it by $V^{\top}$
+\begin{align*}
+        XVV^{\top} &=  X \mathbf{v}_1 \otimes \mathbf{v}_1 + \cdots + X \mathbf{v}_n \otimes \mathbf{v}_n\\
+        & = X_1 + \cdots + X_n\\
+        & = X
+\end{align*}
+Again, each row of $XV$ represents the coordinate of $(\mathbf{v}_1\ \cdots \ \mathbf{v}_p)^{\top}$. By right-multiplying it by its inverse $V^\top$, we can restore the coordinates to those of \textbf{standard orthonormal basis}. Another way to view $XVV^{\top}$ is as the sum of 
+the projections of all data points onto the orthonormal basis. 
+

@@ -1,0 +1,174 @@
+\section{Vector Calculus}
+    \subsection{Gradient}
+    \begin{Def}
+        \textbf{Gradient}: Let $f:\mathbb{R}^n\to \mathbb{R}$. The gradient of the function $f$ with respect to $\mathbf{x}$ is a vector of $n$ partial derivatives:
+        \begin{equation}
+            \nabla_{\mathbf{x}} f(\mathbf{x}) = \begin{bmatrix}
+                \partial_{x_1}f(\mathbf{x}) & 
+                \partial_{x_2}f(\mathbf{x}) & 
+                \cdots &
+                \partial_{x_n}f(\mathbf{x})
+            \end{bmatrix}^{\top}
+        \end{equation}
+        $\nabla_{\mathbf{x}} f(\mathbf{x})$ is typically replaced by $\nabla f(\mathbf{x})$.
+    \end{Def}
+    \noindent The following rules come in handy for differentiating multivariate function:
+    \begin{enumerate}
+        \item  $\forall A \in\mathbb{R}^{n\times p}$: $\nabla_{\mathbf{x}} A\mathbf{x} = A^{\top}$
+        \item $\forall A \in\mathbb{R}^{p\times p}$: $\nabla_{\mathbf{x}}\mathbf{x}^{\top}A \mathbf{x} = (A + A^{\top})\mathbf{x}$
+        \item $\nabla_{\mathbf{x}}\lVert \mathbf{x} \rVert^2 = \nabla_{\mathbf{x}}\mathbf{x}^{\top}\mathbf{x} = 2\mathbf{x}$
+    \end{enumerate}
+    \begin{Thm}\label{Chain-rule}
+        \textbf{Chain Rule:}
+        Suppose $y = f(\mathbf{u})$ has variables $u_1, u_2, \cdots, u_m$. where each $u_i = g_i(\mathbf{x})$ has variables $x_1, x_2, \cdots, x_n$, i.e., $\mathbf{u} = g(\mathbf{x})$. Then
+        \begin{equation}
+            \cfrac{\partial y}{\partial x_i} = \cfrac{\partial y}{\partial u_1}\cfrac{\partial u_1}{\partial x_i} + \cfrac{\partial y}{\partial u_2}\cfrac{\partial u_2}{\partial x_i} + \cdots + \cfrac{\partial y}{\partial u_m}\cfrac{\partial u_m}{\partial x_i} = A\nabla_{\mathbf{u}} y.
+        \end{equation}
+        where $A \in\mathbb{R}^{n\times m}$ contains the derivative of vector $\mathbf{u}$ with respect to vector $\mathbf{x}$.
+    \end{Thm}
+    \begin{Ex} \label{12 - 1}
+        Let $X$ be an $n\times p$ matrix, find a vector $\hat{\pmb{\beta}}$ such that
+        \begin{equation*}
+            \hat{\pmb{\beta}} = \underset{\mathbf{b}\in \mathbb{R}^p}{\argmin} \ \lVert \mathbf{y} - X\mathbf{b} \rVert^2
+        \end{equation*}
+        \begin{sol}
+        Let $f(\mathbf{b}) = \lVert \mathbf{y} - X\mathbf{b} \rVert^2 = (\mathbf{y} - X\mathbf{b})^{\top}(\mathbf{y} - X\mathbf{b})$. Expanding $(\mathbf{y} - X\mathbf{b})^{\top}(\mathbf{y} - X\mathbf{b})$.
+            \begin{align*}
+                f(\mathbf{b}) = \mathbf{y}^{\top}\mathbf{y} - \mathbf{y}^{\top} X \mathbf{b} - \mathbf{b}^\top X^{\top}\mathbf{y} + \mathbf{b}^\top X^{\top} X\mathbf{b}
+            \end{align*}
+            It is easy to see the above equation has a minimum value. Let its gradient be $\mathbf{0}$:
+            \begin{align*}
+                \nabla f(\mathbf{b}) &= -X^{\top}\mathbf{y} - X^{\top}\mathbf{y} + 2X^{\top}X \mathbf{b} = \mathbf{0}
+            \end{align*}
+            If $X^{\top}X$ is non-singular, we can get $\mathbf{b} = (X^{\top}X)^{-1}X^{\top} \mathbf{y}$.
+        \end{sol}
+    \end{Ex}
+
+    \subsection{Jacobin Matrix}
+    Let $F:\mathbb{R}^n\to \mathbb{R}^m$ be a differentiable function on region $D\subseteq \R^m$. That is, $\forall \B{x}\in D$, 
+    \begin{equation*}
+        F(\B{x}) = \begin{bmatrix}
+            f_1(\B{x}) & f_2(\B{x}) & \cdots & f_n(\B{x})
+        \end{bmatrix}^\top
+    \end{equation*}
+    for which each $f_i$ is an $\R^n \to \R$ function. However, since the function $F$ can be arbitrarily complected, a good approach is to find a linear function that approximate $F$ around a point $\B{p}\in \mathbb{R}^n$. Suppose we can find such a function, say $T(\B{x}) = A\B{x} + \B{b}$. It must satisfy the following conditions:
+    \begin{enumerate}
+        \item $F(\B{p}) = T(\B{p})$
+        \item $\displaystyle \lim_{\B{x}\to \B{p}}F(\B{p}) - T({\B{x}}) = 0 $
+    \end{enumerate}
+    By the first condition, $T(\B{p}) = A\B{p} + \B{b}$, we have
+    \begin{equation}
+        \B{b} = F(\B{p}) - A\B{p}
+    \end{equation}
+    Substitute equation above to $T(\B{x})$
+    \begin{equation}
+        T(\B{x}) = A\B{x} + F(\B{p}) - A\B{p} = F(\B{p}) + A(\B{x} - \B{p})
+    \end{equation}
+    Then, the condtion 2 can be written as
+    \begin{equation}
+        \lim_{\B{x}\to \B{p}} F(\B{x}) - F(\B{p}) + A(\B{x} - \B{p}) = 0
+    \end{equation}
+    We can handle a simpe case with it: let $\B{x}$ approaches to $\B{p}$ along a standard coordinate axis. Let $\B{e}_i$ be a vector, where the $i^{\text{th}}$ entry is one and all other entries are zeros, and $\B{x} = \B{p} + h\B{e}_j$. Then
+    \begin{equation}
+        \lim_{h\to 0} F(\B{p} + h\B{e}_j) - F(\B{p}) + A(h\B{e}_j) = 0
+    \end{equation} where $h\neq 0$. The equation above is equiavalent to
+    \begin{equation}
+        \lim_{h\to 0} \cfrac{F(\B{p} + h\B{e}_j) - F(\B{p}) + A(h\B{e}_j)}{h} = \lim_{h\to 0} \cfrac{F(\B{p} + h\B{e}_j) - F(\B{p}) + hA(h\B{e}_j)}{h} = 0
+    \end{equation}
+    We can get
+    \begin{equation}
+        \lim_{h\to 0} \cfrac{F(\B{p} + h\B{e}_j) - F(\B{p}) }{h} = A\B{e}_j = \begin{bmatrix}
+            \cfrac{\partial f_1}{\partial x_j}(\B{p}) & \cfrac{\partial f_2}{\partial x_j}(\B{p}) & \cdots & \cfrac{\partial f_m}{\partial x_j}(\B{p})
+        \end{bmatrix}^{\top}
+    \end{equation}
+    Hence,
+    \begin{equation}
+        A = \begin{bmatrix}
+            \cfrac{\partial f_1}{\partial x_1}(\B{p}) & \cfrac{\partial f_2}{\partial x_1}(\B{p}) & \cdots & \cfrac{\partial f_n}{\partial x_1}(\B{p})\\\\
+
+            \cfrac{\partial f_1}{\partial x_2}(\B{p}) & \cfrac{\partial f_2}{\partial x_n}(\B{p}) & \cdots & \cfrac{\partial f_n}{\partial x_n}(\B{p})\\\\
+
+            \vdots & \vdots & \ddots & \vdots\\\\
+
+             \cfrac{\partial f_n}{\partial x_m}(\B{p}) & \cfrac{\partial f_n}{\partial x_m}(\B{p}) & \cdots & \cfrac{\partial f_n}{\partial x_m}(\B{p})
+             \end{bmatrix}
+    \end{equation}
+    Note that the matrix $A$ discussed in \cref{Chain-rule} has the similar form as the above matrix.
+    \begin{Def}\label{Jacobin-Matrix}
+        \textbf{Jacobin Matrix}:
+    Suppose $\B{y} = f(\B{x}):\Rn \to \mathbb{R}^m$ is a continuous function with continuous partial derivatives, where each $y_i = f_i(\B{x})$. Its Jacobin matrix is defined as below:
+    \begin{equation}
+        J_f = \nabla f(\B{x})= \begin{bmatrix}
+            \cfrac{\partial f_1}{\partial x_1} & \cfrac{\partial f_2}{\partial x_1} & \cdots & \cfrac{\partial f_n}{\partial x_1}\\\\
+
+            \cfrac{\partial f_1}{\partial x_2} & \cfrac{\partial f_2}{\partial x_n} & \cdots & \cfrac{\partial f_n}{\partial x_n}\\\\
+
+            \vdots & \vdots & \ddots & \vdots\\\\
+
+             \cfrac{\partial f_n}{\partial x_m} & \cfrac{\partial f_n}{\partial x_m} & \cdots & \cfrac{\partial f_n}{\partial x_m}
+        \end{bmatrix}
+    \end{equation}
+    \end{Def}    
+    \begin{Thm}
+        Suppose a function $f:\Rn \to \Rn$ as discussed in \cref{Jacobin-Matrix} is invertible, then
+        \begin{equation}
+            \det(J_{f^{-1}}) = \det(J_f)^{-1}
+        \end{equation}
+    \end{Thm}
+
+
+    \subsection{Multivariate Taylor's Theorem}
+    We've learned Taylor series for a function $y = f(x)$ of a single variable. For an $n + 1$-times differentiable function $f : \R \to \R$, we have
+    \begin{equation}
+        f(x) = f(c) + f'(c)(x - c) + \cfrac{f''(c)(x - c)^2}{2!} + \cdots + \cfrac{f^{(n)}(c)(x - c)^n}{n!} + R_n(x, c)
+    \end{equation}
+    where $R_n(x, c)$ is called the \textbf{remained term}:
+    \begin{equation}
+        R_n(x ,c) = \cfrac{f^{(n+1)}(z)(x - c)^n}{n!}
+    \end{equation}
+    for which $z$ is a real number between $x$ and $c$.
+    There is a very similar formula for functions of several variables. Before go further, let us define some notations. For a function $f:\Rn \to \R$ and  two vectors: $\B{x}_0,\B{h}\in \Rn$: 
+    \begin{align*}
+        D_f(\B{x}_0, \B{h}) &= \sum_{i = 1}^n \cfrac{\partial f}{\partial x_i}(\B{x}_0) h_i\\
+        D^2_f(\B{x}_0, \B{h}) &= \sum_{i = 1}^n\sum_{j = 1}^n \cfrac{\partial^2 f}{\partial x_i \partial x_j}(\B{x}_0) h_ih_j\\
+        D^3_f(\B{x}_0, \B{h}) &= \sum_{i = 1}^n\sum_{j = 1}^n\sum_{k = 1}^n \cfrac{\partial^3 f}{\partial x_i \partial x_j \partial x_k}(\B{x}_0) h_ih_jh_k 
+    \end{align*}
+    and so on. Note that $D_f(\B{x}_0, \B{h}) = \nabla f(\B{x}_0)^\top \B{h}$.
+    \begin{Thm}
+        Let $f:\Rn \to \R$ be an $n + 1$-times continuously differentiable function at the point $\B{v_0}\in \Rn$. Then, 
+        \begin{equation*}
+            f(\B{x}) = f(\B{v}_0) + \sum_{k = 1}^n \cfrac{1}{k!}D^k_{f}(\B{v}_0, \B{x} - \B{v}_0) + \cfrac{1}{(n + 1)!}D^{n + 1}_f(\B{z}, \B{x} - \B{v}_0)
+        \end{equation*}
+        where $\B{z}$ is some point on the segment from $\B{x}$ to $\B{v}_0$.
+    \end{Thm}
+    \begin{Ex}
+        Write out the Taylor expansion through terms of degree $2$ for $f:\R^2 \to \R^2$. Let $\B{x} = \begin{bmatrix}
+            x_1 & x_2
+        \end{bmatrix}^\top$
+        \begin{align*}
+            f(\B{x}) &= f(\B{v}_0) + \bigg(\cfrac{\partial f}{\partial x_1}(\B{v}_0)(x_1 - v_1) + \cfrac{\partial f}{\partial x_2}(\B{v}_0)(x_2 - v_2) \bigg) + \\
+            & \cfrac{1}{2}\bigg(\cfrac{\partial^2 f}{\partial x_1^2}(\B{v}_0)(x_1 - v_1)^2 + \cfrac{\partial^2 f}{\partial x_1 \partial x_2}(\B{v}_0)(x_1 - v_1)(x_2 - v_2) + \cfrac{\partial^2 f}{\partial x_2^2}(\B{v}_0)(x_2 - v_2)^2 +  \cfrac{\partial^2 f}{\partial x_2 \partial x_1}(\B{v}_0)(x_2 - v_2)(x_1 - v_1)   \bigg)\\
+            & + \cdots 
+        \end{align*}
+        Note the term of degree $1$ can be written as $\nabla f(\B{v_0})^{\top} (\B{x} - \B{v}_0)$, and the term of degree $2$ can be written in a quadratic form:
+        \begin{equation}\label{second-term}
+            \cfrac{1}{2}(\B{x} - \B{v}_0)^{\top} \begin{bmatrix}
+            \cfrac{\partial^2 f}{\partial x_1^2}(\B{v}_0) & \cfrac{\partial^2 f}{\partial x_2 \partial x_1}(\B{v}_0)\\\\
+            \cfrac{\partial^2 f}{\partial x_1 \partial x_2}(\B{v}_0) & \cfrac{\partial^2 f}{\partial x_2^2}(\B{v}_0) 
+        \end{bmatrix} (\B{x} - \B{v}_0)
+        \end{equation} The matrix in \cref{second-term} is called \textbf{Hessian Matrix}, denoted by $\B{H}_f(\B{v}_0)$.
+    \end{Ex}
+
+    \subsection{TODO: Hessian Matrix}
+    \begin{Def}
+        Suppose $f: \Rn \to \R$ has continuous second-order derivatives. Then the Hessian Matrix is a square $n\times n$ matrix, usually defined and arranged as
+        \begin{equation}
+            H_f = \begin{bmatrix}
+            \cfrac{\partial^2 f}{\partial x_1^2} & \cfrac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \cfrac{\partial^2 f}{\partial x_1 \partial x_n} \\\\
+            \cfrac{\partial^2 f}{\partial x_2 \partial x_1} & \cfrac{\partial^2 f}{\partial x_2^2} & \cdots & \cfrac{\partial^2 f}{\partial x_2 \partial x_n} \\\\
+            \vdots & \vdots & \ddots & \vdots \\\\
+            \cfrac{\partial^2 f}{\partial x_n \partial x_1} & \cfrac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \cfrac{\partial^2 f}{\partial x_n^2}
+            \end{bmatrix}
+        \end{equation}
+    \end{Def}
+    \subsection{TODO: Put them together}

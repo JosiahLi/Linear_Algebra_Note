@@ -1,0 +1,38 @@
+%----------------macros--------------
+%\newcommand{}{}
+\newcommand{\muX}[1]{\pmb{\mu}_{\mathbf{#1}}} % takes an arugment as the subscript.
+\newcommand{\Var}{\text{Var}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\Rnn}{\mathbb{R}^{n\times n}}
+\newcommand{\Rp}{\mathbb{R}^p}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rnp}{\mathbb{R}^{n\times p}}
+\newcommand{\coo}[2]{[\mathbf{#1}]_{\mathcal{#2}}} % coordiate vector
+\newcommand{\T}[1]{#1^{\top}}
+\newcommand{\quadratic}[2]{\mathbf{#1}^{\top}#2\mathbf{#1}}
+\newcommand{\Hbeta}{\widehat{\pmb{\beta}}}
+\newcommand{\iid}{\overset{\text{i.i.d.}}{\sim}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\tr}{\text{tr}}
+
+\DeclareMathOperator*{\argmax}{arg\!\max}
+\DeclareMathOperator*{\argmin}{arg\!\min}
+%---------------Linear Model macro---------------
+\newcommand{\predY}{\mathbf{X}\hat{\pmb{\beta}}}
+\newcommand{\error}{\mathbf{Y} - \mathbf{X}\hat{\pmb{\beta}}}
+\newcommand{\gram}[1]{\mathbf{#1}^{\top}\mathbf{#1}}
+\newcommand{\pdfn}[1]{f_{\mathbf{#1}}(\mathbf{\MakeLowercase{#1}})}
+\newcommand{\snormal}{\mathcal{N}(0, 1)}
+\newcommand{\normalv}[1]{\mathbf{#1}\sim\mathcal{N}(\pmb{\mu}_{\mathbf{#1}}, \pmb{\Sigma}_{\mathbf{#1}})}
+\newcommand{\covmat}{\pmb{\Sigma}}
+\newcommand{\covmatX}[1]{\pmb{\Sigma}_{\mathbf{#1}}}
+\newcommand{\epsv}{\pmb{\varepsilon}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\linearmodel}{\mathbf{Y} = \mathbf{X}\pmb{\beta} + \pmb{\varepsilon}}
+\newcommand{\betav}{\pmb{\beta}}
+\newcommand{\thetav}{\pmb{\theta}}

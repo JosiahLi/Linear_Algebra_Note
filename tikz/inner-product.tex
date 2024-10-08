@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+    \draw (3, 2) coordinate (a) node[right] {a}
+    -- (0,0) coordinate (O) node[left] {O}
+    -- (4,0) coordinate (b) node[right] {b}
+    pic["$\alpha$", draw=orange, <->, angle eccentricity=1.2, angle radius=1cm]
+    {angle=b--O--a};
+
+    \draw[->] (O) -- (a);
+    \draw[->] (O) -- (b);
+    \end{tikzpicture}

@@ -1,0 +1,397 @@
+\section{Probability and Statistics}
+    In this section, an uppercase letter (e.g., $X$) represents a random variable, while a bold upper letter (e.g., $\mathbf{X}$) represents a random vector, random matrix, or real matrix.
+    \subsection{Expectation and Variance for Random Matrix}
+    \begin{Def}
+        The expectation of a random vector $\X \in \Rp$ is a $p$-dimensional vector defined as:
+        \begin{equation*}
+            \E(\X) = \begin{bmatrix}
+                \E(X_1)\\
+                \E(X_2)\\
+                \vdots \\
+                \E(X_p)
+            \end{bmatrix} = \pmb{\mu}_{\X}
+        \end{equation*}
+    \end{Def}
+
+    \begin{Def}
+        \textbf{Covariance Matrix:} A $p\times p$ matrix $\covmat$ defined as
+        \begin{equation*}
+            \covmat = \text{Var}(\X) = \E((\X - \muX{X})(\X - \muX{X})^{\top})
+        \end{equation*}
+        is called the covariance matrix of $\X$.
+        We can expand the outer product:
+        \begin{align*}
+            \Var(\X) &= \begin{bmatrix}
+                \E\Big((X_1 - \mu_1)^2\Big) & \E\Big((X_1 - \mu_1)(X_2 - \mu_2)\Big) & \cdots &  \E\Big((X_1 - \mu_1)(X_p - \mu_p)\Big)\\
+                \vdots & \ddots  & \cdots & \vdots\\
+                \E\Big((X_p - \mu_p)(X_1 - \mu_1)\Big) & \E\Big((X_p - \mu_p)(X_2 - \mu_2)\Big) & \cdots &  \E\Big((X_p - \mu_p)^2\Big)
+            \end{bmatrix}\\\\
+            & = \begin{bmatrix}
+                \sigma_{11} & \sigma_{12} & \cdots &  \sigma_{1p}\\
+                \vdots & \ddots  & \cdots & \vdots\\
+                \sigma_{p1} & \sigma_{p2} & \cdots &  \sigma_{pp}
+            \end{bmatrix}
+        \end{align*}
+        where $\sigma_{ij}$ stands for $\text{Cov}(X_i, X_j)$. It is easy to see that \textbf{$\Var(\X)$ is symmetric} due to the fact that $\text{Cov}(X_i, X_j) = \text{Cov}(X_j, X_i)$.
+        \begin{Rem}
+            If $\X$ and $\B{Y}$ are two random vectors with different joint probability distributions, then $\Cov(\X, \B{Y})$ is \textbf{\textcolor{red}{NOT symmetric}}, therefore $\Cov(\X, \B{Y})\neq \Cov(\B{Y}, \B{X})$.
+        \end{Rem}
+    \end{Def}
+    \begin{Thm}
+        $\Var(\X)$ has the following equivalent representation:
+        \begin{equation}
+            \Var(\X) = \E(\X\X^{\top}) - \muX{X}\muX{X}^{\top}
+        \end{equation}
+        due to the fact that $\Cov(X_i, X_j) = \E(X_iX_j) - \E(X_i)\E(X_j)$.
+    \end{Thm}
+    \begin{Thm}
+    The following rules come in handy for calculating expectation and variance:
+    \begin{enumerate}
+        \item $\E(\X + \B{C}) = \E(\X) + \B{C}$, where $\X$ is an $n \times p$ random matrix and $\B{C}\in \Rnp$.  
+        \item $\E(\B{A}\X + \B{C}) = \B{A}\E(\X) + \B{C}$, where $\B{A}\in \mathbb{R}^{m\times n}$ and $\B{C}\in\mathbb{R}^{m\times p}$.
+        \item $\E(\B{Q}\X\B{P}) = \B{Q}\E(\X)\B{P}$, where $\B{Q}, \B{P}$ are properly defined real matrices.
+        \item $\E(\B{Q}\X^{\top}\B{P}) = \B{Q}\E(\X)^{\top}\B{P}$, where $\B{Q}, \B{P}$ are properly defined.
+        \item $\E(\B{Q}\X\B{P} + \B{b})^{\top} = \E\bigg((\B{Q}\X\B{P} + \B{b})^{\top} \bigg)$
+        \item $\Var(\B{A}\X + \B{b}) = \B{A}\Var(\X)\B{A}^{\top}$
+        \begin{proof}
+            \begin{align}
+                \E(\B{A}\X + \B{b})\E(\B{A}\X + \B{b})^{\top} & = 
+                \B{A}\muX{X}\muX{X}^{\top}\B{A}^{\top} + \B{A}\muX{X}\B{b}^{\top} + \B{b}\muX{X}^{\top}\B{A}^{\top} + \B{b}\B{b}^{\top}\label{13-2}\\
+                \E\Bigl((\B{A}\X + \B{b})(\B{A}\X + \B{b})^{\top}\Bigr) &= \B{A}\E(\X\X^{\top})\B{A}^{\top} + \B{A}\muX{X}\B{b}^{\top} + \B{b}\muX{X}^{\top}\B{A}^{\top} + \B{b}\B{b}^{\top}\label{13-3}
+            \end{align}
+        By subtracting \cref{13-3} by \cref{13-2},
+        \begin{align*}
+            \Var(\B{A}\X + \B{b}) &= \B{A}\E(\X\X^{\top})\B{A}^{\top} - \B{A}\muX{X}\muX{X}^{\top}\B{A}^{\top}\\
+            & = \B{A}\Big(\E(\X\X^{\top}) - \muX{X}\muX{X}^{\top} \Big)\B{A}^{\top}\\
+            & = \B{A} \Var(\X) \B{A}^{\top}
+        \end{align*}
+        \end{proof}
+        \item $\Cov(\B{A}\X, \B{B}\B{Y}) = \B{A}\Cov(\X, \B{Y})\B{B}^{\top}$
+        \item $\E(\T{\B{X}}\B{A}\B{X}) = \tr(\B{A}\covmatX{X}) + \T{\muX{X}}\B{A}\muX{X}$
+        \begin{proof}
+            The proof uses the properties discussed in \cref{trace}.
+            \begin{align*}
+                \E(\T{\B{X}}\B{A}\B{X}) &= \E\Big(  \tr(\T{\B{X}}\B{A}\B{X}) \Big) \quad \text{Since} \T{\B{X}}\B{A}\B{X} \text{ is a scalar.}\\
+                & = \E\Big(  \tr(\B{A}\B{X}\T{\B{X}}) \Big)\\
+                & = \tr\Big( \E(\B{A}\B{X}\T{\B{X}}) \Big) = \tr\Big(A\E(\B{X}\T{\B{X}}) \Big) \\
+                & = \tr\Big(\B{A}(\covmatX{X} + \muX{X}\T{\muX{X}})) \Big)\\
+                & = \tr(\B{A}\covmatX{X}) + \tr(\B{A}\muX{X}\muX{X}^{\top}) = \tr(\B{A}\covmatX{X}) + \tr(\muX{X}\B{A}\muX{X}^{\top})\\
+                & = \tr(\B{A}\covmatX{X}) + \T{\muX{X}}\B{A}\muX{X}
+            \end{align*}
+        \end{proof}
+    \end{enumerate}
+    \end{Thm}
+    
+    The property 8 is useful  when calculating expectation involving a quadratic from.
+    \begin{Ex}
+        Suppose $Y = \begin{bmatrix}
+            Y_1 & Y_2 & \cdots & Y_n
+        \end{bmatrix}^{\top}$ is a random vector where $Y_i$'s are i.i.d. distributed with mean $\mu$ and variance $\sigma^2$. Then $\E(\B{Y}) = \mu \mathbbold{1}$ and $\Var(\B{Y}) = \sigma^2\B{I}$. 
+        $\displaystyle \sum_{i = 1}^n(Y_i - \Bar{Y})^2$ can be expressed in a quadratic form: $\T{\B{Y}}(\B{I} - \B{H}_0)\B{Y}$, where $\B{H}_0$ is the projection matrix onto vector $\mathbbold{1}$. Note that $\B{H}_0$ is full of $\cfrac{1}{n}$'s.
+        \begin{align*}
+            E\Big( \T{\B{Y}}(\B{I} - \B{H}_0)\B{Y} \Big) &= \tr\Big( (\B{I} - \B{H}_0) \sigma^2 \B{I} \Big) + \muX{Y}^{\top} (\B{I} - \B{H}_0)\muX{Y}\\
+            & = \sigma^2 (1 - \cfrac{1}{n}) n + \mu^2 \T{\mathbbold{1}}(\B{I} - (\T{\mathbbold{1}}\mathbbold{1})^{-1}\mathbbold{1}\T{\mathbbold{1}})\mathbbold{1}\\
+            & = \cfrac{\sigma^2}{n - 1} + \mu^2 (\T{\mathbbold{1}} - \T{\mathbbold{1}})\mathbbold{1}\\
+            & =  \cfrac{\sigma^2}{n - 1}
+        \end{align*}
+        We can see that $\cfrac{\sum_{i = 1}^n(Y_i - \Bar{Y})^2}{n - 1}$ is an unbiased estimator.
+    \end{Ex}
+    
+    \begin{Thm}
+        The covariance matrix $\covmat$ of a random vector $\B{X}\in \Rn$ is \textbf{positive semi-definite} as discussed in \cref{quad-def}.
+        \begin{proof}
+            Let $Y = \T{\B{b}}(\X - \muX{X})$, where $\B{b}\in\Rn$, then
+            \begin{align*}
+                \E(Y^2) &= \E(Y\T{Y})\\
+                & = \E\Big(\T{\B{b}}(\B{X} - \muX{X})\T{(\B{X} - \muX{X})}\B{b} \Big)\\
+                & = \T{\B{b}}\covmat \B{b} \geq 0
+            \end{align*}
+        \end{proof}
+        This theorem illustrates that the eigenvalues of $\covmat$ are non-negative, and, therefore, $\det(\B{\Sigma}) \geq 0$. $\covmat$ is positive definite if and only if all of its eigenvalues are positive by \cref{11-2}, implying that $\det(\B{\Sigma}) > 0$. 
+    \end{Thm}
+
+    \subsection{Transformations for Random Vectors}
+    \begin{Thm}\label{trans-random}
+        Let $\B{X}\in\Rn$ be a random vector, with joint p.d.f. $\pdfn{X}$. Let $G:\Rn\to \Rn$ be a continuous and invertible function with continuous partial derivatives. If we let $\B{Y} = G(\B{X})$, then $\B{Y}$ is also a random vector with joint p.d.f.
+        \begin{equation}
+            \pdfn{Y} = f_{\B{X}}\Big(G^{-1}(\B{Y}) \Big) |\det(\B{J}_{G^{-1}}) |  
+        \end{equation}
+        where $\B{J}_{G^{-1}}$ is a Jacobin matrix defined as \cref{Jacobin-Matrix}.
+    \end{Thm}
+    \begin{Ex}\label{linear-trans}
+        Let $\B{X}\in\Rn$ be a random vector, with joint p.d.f. $\pdfn{X}$. Let $\B{Y} = G(\B{X}) = \B{AX} + \B{b}$, where $\B{A}$ is an $n\times n$ non-singular real matrix. Find the joint p.d.f. of $\B{Y}$.
+        \begin{sol}
+            Obviously, the linear transformation $\B{AX} + \B{b}$ is invertible, since $\B{A}^{-1}$ exists. Therefor, $\B{X}  = \B{A}^{-1}(\B{Y} - \B{b})$ with Jacobin matrix:
+            \begin{equation}
+                \B{J}_{G^{-1}} = \nabla G(\B{Y})^{-1} = \T{(\B{A}^{-1})}
+            \end{equation}
+            Thus,
+            \begin{equation}
+                \pdfn{Y} = f_{\B{X}}\Big(G^{-1}(\B{Y}) \Big) |\det(A^{-1})|
+            \end{equation}
+            The result can also be written as $\pdfn{Y} = f_{\B{X}}\Big(G^{-1}(\B{Y}) \Big) |\det(A^{})|^{-1}$.
+        \end{sol}
+    \end{Ex}
+    \subsection{Multivariate Gaussian Distribution}
+    We know that the linear combination of a collection of random variables following Gaussian distributions still follows a Gaussian distribution. For example, given two random variables $X\sim \mathcal{N}(\mu_X, \sigma_X)$ and $Y\sim \mathcal{N}(\mu_Y, \sigma_Y)$, then
+    \begin{equation}
+        aX + bY \sim \mathcal{N}(a\mu_X + b\mu_Y, a^2\sigma_X^2 + b^2\sigma_Y^2)
+    \end{equation}
+    We can generalize this result to higher dimensions.
+    \begin{Def}
+        \textbf{Normal Vector}: A random vector $\X$ is said to be normal or Gaussian, if every random variable $X_i$ within it:
+        \begin{equation*}
+            X_i\iid \mathcal{N}(\mu_{X_i}, \sigma^2_{X_i})
+        \end{equation*}
+    \end{Def}
+    \begin{Def}
+        \textbf{Standard Normal vector}:
+        A random vector $\B{Z}$ is said to be normal or Gaussian, if every random variable within it if every random variable $Z_i$ within it:
+        \begin{equation*}
+            Z_i\iid \mathcal{N}(0, 1)
+        \end{equation*}
+    \end{Def}
+    \begin{Thm}\label{standard-Gaussian-vector}
+        A $n$-dimensional standard Normal vector $\B{Z}$, denoted by, $\B{Z}\sim \mathcal{N}(\B{0}, \B{I})$ has the following join p.d.f.:
+        \begin{equation*}
+            \pdfn{Z} = (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2}\ \T{\B{z}} \B{z}\bigg)
+        \end{equation*}
+        \begin{proof}
+            Since $Z_i\iid \snormal$, Their joint p.d.f. is
+            \begin{align*}
+                \pdfn{Z} &= (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2} \sum_{i = 1}^n Z_i^2 \bigg)\\
+                & = (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2}\ \T{\B{z}} \B{z}\bigg)
+            \end{align*}
+            We can verify its expectation and covariance matrix:
+            \begin{equation*}
+                \muX{Z} = \E(\B{Z}) = \B{0} 
+            \end{equation*}
+            \begin{equation*}
+                \covmat_{\B{Z}} = \E(\B{Z}\T{\B{Z}}) - \muX{Z}\T{\muX{Z}} = \B{I}
+            \end{equation*}
+        $\covmatX{Z} = \B{I}$ is derived from the fact that $\forall i\neq j: \E(Z_iZ_j) = \E(Z_i)\E(Z_j) = 0$ and $Z_i^2 \sim \chi^2_{1}$ with $\E(\chi^2_1) = 1$.
+        \end{proof}
+    \end{Thm}
+     Next, we are going to derive the joint p.d.f. of a normal random vector $\B{X}\sim \mathcal{N}(\muX{X}, \covmat_{\B{X}})$ with $\det(\covmat_{\B{X}}) > 0$. 
+    \begin{Rem}
+        Here, we add an assumption, $\det(\covmat_{\B{X}}) > 0$, on $\B{X}$. If $\det(\covmat_{\B{X}}) = 0$, then it can be shown that some $X_i$ can be written as a linear combination of the others, so indeed we can remove $X_i$ from the random vector without losing any information.
+     \end{Rem}
+     Since $\covmat_{\B{X}}$ is symmetric, by the \cref{orthogonally-dianonalizable}
+     \begin{equation*}
+         \covmat_{\B{X}} = \B{P}\B{D}\T{\B{P}}
+     \end{equation*}
+     where $\B{P}$ is an orthogonal matrix. $\det(\covmat_{\B{X}}) > 0$ guarantees that the diagonal entries of $\B{D}$ is positive, so we can write $\B{D}$ as $\B{D}^{1/2}\B{D}^{1/2}$. Let 
+     \begin{equation*}
+         \B{A} = \B{P}\B{D}^{1/2}\T{\B{P}}
+     \end{equation*}
+     It is easy to check $\B{A}$ is symmetric, non-singular and 
+     \begin{equation*}
+         \B{A}\T{\B{A}} = \T{\B{A}}\B{A} = \covmat_{\B{X}} 
+     \end{equation*}
+     Let $\B{Z}$ be a standard Gaussian vector as defined in \cref{standard-Gaussian-vector} and 
+     \begin{equation*}
+         \B{X} = \B{A}\B{Z} + \B{b}
+     \end{equation*} Note that $\B{X}$ is also a random vector due to the randomness of $\B{Z}$. We can get
+     \begin{equation*}
+         \E(\B{X}) = \E(\B{A}\B{Z} + \B{b}) = \B{0} + \B{b} = \B{b} 
+     \end{equation*}
+     \begin{equation*}
+         \Var(\B{X}) = \B{A}\Var(\B{Z})\T{\B{A}} = \B{A}\B{I}\T{\B{A}} = \covmat_{\B{X}}
+     \end{equation*}
+     We can get the joint p.d.f. of $\B{X}$ as in \cref{linear-trans} and \cref{standard-Gaussian-vector}:
+     \begin{align*}
+         \pdfn{X} &=  (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2}\T{\Big(\B{A}^{-1}(\B{x} - \B{b}) \Big)}
+         \Big(\B{A}^{-1}(\B{x} - \B{b}) \Big) \bigg) |\det{\B{A}})|^{-1}\\
+         & = (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2} \T{(\B{x} - \B{b})}
+         \T{(\B{A}^{-1})}\B{A}^{-1}
+         (\B{x} - \B{b}) \bigg) |\det{\B{A}})|^{-1}\\
+         & = (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2} \T{(\B{x} - \B{b})}
+         (\B{A}\T{\B{A}})^{-1}
+         (\B{x} - \B{b}) \bigg) |\det{\B{A}})|^{-1}\\
+         & = (\sqrt{2\pi})^{-n}\exp\bigg(-\cfrac{1}{2} \T{(\B{x} - \B{b})}
+         \covmat_{\B{x}}^{-1}
+         (\B{x} - \B{b}) \bigg) |\det{\B{A}})|^{-1}
+     \end{align*}
+     Note that $\det(\B{P})\det(\T{\B{P}}) = 1$, since $\B{P}$ is an orthogonal matrix.
+     \begin{equation*}
+         \det({\B{A}}) = \det(\B{P})\det(\B{D}^{1/2})\det(\T{\B{P}}) = \sqrt{\det(\B{A})\det(\T{\B{A}})} = \sqrt{\det(\covmat_{\B{X}})}
+     \end{equation*}
+     By substituting $\det(\B{A}) = \det(\covmat_{\B{X}})$ and $\B{b} = \muX{X}$, we can get the following theorem.
+     \begin{Thm}\label{Normal-vector-pdf}
+         A normal vector or Gaussian vector, $\normalv{X}$ has the following joint p.d.f.:
+         \begin{equation}
+             \pdfn{X} = \cfrac{1}{(2\pi)^{n/2}\det(\covmatX{X})^{1/2} }\exp\bigg(\cfrac{-\T{(\B{x} - \muX{X})}\covmatX{X}^{-1}(\B{x} - \muX{X})}{2}  \bigg)\quad \forall \B{x}\in\Rn
+         \end{equation}\label{eq-normal-vector}
+         where \textbf{\textcolor{red}{$\covmatX{X}$ is positive definite.}}
+     \end{Thm}
+     \begin{Rem}
+         We have performed a linear transformation,
+         \begin{equation}
+             \B{X} = \B{A}\B{Z} + \muX{X}
+         \end{equation} on $\B{Z}\sim \mathcal{N}(\B{0}, \B{I})$, and then get a new normal vector $\normalv{X}$. Note that 
+         \begin{equation*}
+             \muX{X} = \E(\B{X}) = \B{A}\muX{Z} + \muX{X}
+         \end{equation*}
+         \begin{equation*}
+             \Var(\B{X}) = \Var(\B{A}\B{Z} + \muX{X})= \B{A}\covmatX{Z}\T{\B{A}}
+         \end{equation*}
+         has illustrated the property of a linear transformation for a normal vector.
+     \end{Rem}
+
+     \begin{Thm}\label{normal-vector-trans}
+         Let $\normalv{X}$ be a $p$-dimensional normal random vector, $\B{A}$ be an  $n\times p$ (where $n\leq p$) real matrix with full row rank, and $\B{b}$ be an $n$-dimensional real vector, then
+         \begin{equation}
+             \B{A}\B{X} + \B{b} \sim \mathcal{N}(\B{A}\muX{X}+\B{b}, \B{A}\covmatX{X}\T{\B{A}})
+         \end{equation}
+         Note that if $n > p$, then  $\text{rank}(\B{A}\covmatX{X})\leq p$, while $\B{A}\covmatX{X}$ is an $n\times n$ matrix, implying that $\B{A}\covmatX{X}$ is singular (not invertible), and so is $\B{A}\covmatX{X}\T{\B{A}}$. We can check if $\B{A}\covmatX{X}\T{\B{A}}$ is a symmetric and positive definite matrix, which is a necessary condition for it to be a valid covariance matrix.
+        \begin{equation}
+            \T{(\B{A}\covmatX{X}\T{\B{A}})} = \T{(\B{APD}\T{\B{P}}\T{\B{A}})} = \B{APD}\T{\B{P}}\T{\B{A}} = \B{A}\covmatX{X}\T{\B{A}}
+        \end{equation}
+        says the matrix is symmetric. We can verify whether it is positive or not by the \cref{quad-def}. $\forall \B{v}\in \mathbb{R}^n \setminus \{\B{0}\}$, 
+         \begin{equation}
+             \T{\B{v}}\B{A}\covmatX{X}\T{\B{A}}\B{v} = \T{(\T{\B{A}}\B{v})}\covmatX{X} \T{\B{A}}\B{v}
+         \end{equation}
+         Since $\covmatX{X}$ is positive definite, so is $\B{A}\covmatX{X}\T{\B{A}}$. Thus, \textbf{\textcolor{red}{$n \leq p$ and $\B{A}$ being of full row rank are two important requirements.}}
+     \end{Thm}
+
+        \begin{Thm}
+            Suppose a $p$-dimensional random vector $X\sim \normalv{X}$. Then $X_i \sim \mathcal{N}(\mu_i, \sigma_{ii})$, where $\mu_i$ is the $i^{\text{th}}$ element in $\muX{X}$ and $\sigma_{ii}$ is the $i^{\text{th}}$ element of the main diagonal of $\covmatX{X}$.
+            \begin{proof}
+                Let $\B{e}_i$ be a standard basis vector. Then,
+                \begin{equation}
+                    X_i = \T{\B{e}_i}\B{X} \sim \mathcal{N}(\T{\B{e}_i} \muX{X}, \T{\B{e}_i} \covmatX{X}\B{e}_i)
+                \end{equation}
+            \end{proof}
+        \end{Thm}
+        Generally, we cannot say that the two random variables $X, Y$ are independent if $\Cov(X, Y) = 0$, except $X, Y$ are normally distributed.
+        \begin{Thm}
+            Suppose $X, Y$ are two normal random variables with $\Cov(X, Y) = 0$, then $X, Y$ are independent.
+
+            \begin{proof}
+                Let $\B{S} = \begin{bmatrix}
+                    \B{X} & \B{Y}
+                \end{bmatrix}^\top$, then $\covmatX{S}$ is a diagonal matrix. By using this fact, expanding the \cref{eq-normal-vector} can get $\pdfn{S} =  f_{X}(x)f_{Y}(y)$.
+            \end{proof}
+        \end{Thm}
+
+
+    \subsection{Equivalent Representations in a Normal Linear Regression Model}
+    A $p$-dimensional normal vector $\B{X}\sim \normalv{X}$ is a convenient way to represent a set of mutually independent random variables, where $X_i\sim \mathcal{N}(\mu_i, \sigma_i^2)$. By the \cref{eq-normal-vector}, we can get
+    \begin{align*}
+        \pdfn{X} = \cfrac{1}{(2\pi)^{p/2}\prod_{i = 1}^p \sigma_i}\exp\bigg( -\cfrac{1}{2}\sum_{i = 1}^p \cfrac{(X_i - \mu_i)^2}{\sigma_i^2} \bigg)
+    \end{align*}
+    where 
+    \begin{equation}
+        \T{(\B{x} - \muX{x})}\covmatX{X}^{-1}(\B{x} - \muX{x}) =  \sum_{i = 1}^p \cfrac{(X_i - \mu_i)^2}{\sigma_i^2}
+    \end{equation} and $\det(\covmatX{X})^{1/2} = \displaystyle \prod_{i = }^p \sigma_i$. Thus,
+    \begin{equation}
+        X_i \overset{\text{independent}}{\sim} \mathcal{N}(\mu_i, \sigma_i^2)\Longleftrightarrow \B{X}\sim \mathcal{N}\Big(\muX{X}, \text{diag}(\sigma^2_1, \cdots, \sigma^2_p)\Big)
+    \end{equation}
+    \begin{Def}\label{normal-linear-model}
+        A \textbf{Normal Linear Regression Model} is defined as below
+        \begin{equation}
+            \linearmodel \quad \text{where } \epsv \sim \mathcal{N}(\B{0}, \sigma^2\B{I})
+        \end{equation}
+        where $\B{X}$ is a full-column-rank $n\times p$ ($n\geq p$) real matrix with $\mathbbold{1}$ (a vector with all $1$'s) as its first column, and $\betav\in \Rp$. The following statements are equivalent:
+        \begin{enumerate}
+            \item $\epsv \sim \mathcal{N}(\B{0}, \sigma^2\B{I})$
+            \item $\eps_i \iid \mathcal{N}(0, \sigma^2)$
+            \item $Y_i \overset{\text{independent}}{\sim}\mathcal{N}(\T{\B{x}_i}\betav, \sigma^2 )$
+            \item $\B{Y}\sim \mathcal{N}(\B{X}\betav, \sigma^2\B{I})$
+        \end{enumerate}
+    \end{Def}
+    
+     \subsection{Standardizing a Normal Vector}
+     Suppose $\covmatX{X} = \B{P}\B{D}\T{\B{P}}$ is positive definite. If we let $\B{A} = \B{P}\B{D}^{1/2}\T{\B{P}}$, it is clear that
+     \begin{equation}
+         \covmatX{X} = \B{A}\B{A} = \B{A}^2
+     \end{equation}
+     Therefore, we can define
+     \begin{equation}
+         \covmatX{X}^{1/2} = \B{P}\B{D}^{1/2}\T{\B{P}} = \T{(\covmatX{X}^{1/2})}
+     \end{equation} 
+     Note that \textbf{\textcolor{cyan}{$\covmatX{X}^{1/2}$ is symmetric, non-singular, and still positive definite}} due to the positive definiteness of $\covmatX{X}$, that is, there is no zero entry on the main diagonal of $\B{D}$.
+     It is easy to check that $\covmatX{X}^{1/2}$ has the following property:
+    \begin{equation}
+        \covmatX{X}^{1/2} = \covmatX{X}^{1/2} \covmatX{X} = \covmatX{X} \covmatX{X}^{1/2}
+    \end{equation}
+    If $\normalv{X}$,
+    we can get a standard normal vector by letting
+    \begin{equation}
+        \B{Z} = \B{\covmatX{X}}^{-1/2}(\B{X} - \muX{X})
+    \end{equation}
+    It is easy to verify that $\E(\B{Z}) = \B{0}$ and $\Var(\B{Z}) = \B{I}$.
+
+    \subsection{The Distribution of LSE}
+    In a linear model, we have found an estimator according to the \cref{def-lse}:
+    \begin{equation*}
+        \Hbeta = (\T{\B{X}}\B{X})^{-1}\T{\B{X}}\B{Y}
+    \end{equation*}
+    given that $\T{\B{X}}\B{X}$ is non-singular.
+    \begin{Thm}
+        Suppose, in a linear model, the response vector $\B{Y}$ has $\E(\B{Y}) = \B{X}\betav$ and $\Var(\B{Y}) = \covmat$. Then the LSE $\Hbeta = (\T{\B{X}}\B{X})^{-1}\T{\B{X}}\B{Y}$ has the following properties:
+        \begin{enumerate}
+            \item $\E(\Hbeta) = \betav$
+            \item $\Var(\Hbeta) = (\gram{X})^{-1}\T{\B{X}}\covmat \B{X}(\gram{X})^{-1}$
+        \end{enumerate}
+        Note that the property 2 uses the fact that the inverse of a symmetric matrix is also symmetric. Note also that \textbf{\textcolor{red}{$\Var(\Hbeta) = (\T{\B{X}}\B{X})^{-1}$ if the model is a normal linear model as discussed in \cref{normal-linear-model}}.}
+    \end{Thm}
+    \begin{Ex}
+        Suppose $\Var(\B{Y}) = \sigma^2\B{I}$. Show that $\Var(\Hbeta) = \sigma^2 (\gram{X})^{-1}$.
+        \begin{proof}
+            \begin{align*}
+                \Var(\Hbeta) &= (\gram{X})^{-1}\T{\B{X}} \sigma^2\B{I} \T{((\gram{X})^{-1}\T{\B{X}})}\\
+                & = \sigma^2 (\gram{X})^{-1} 
+            \end{align*}
+        \end{proof}
+    \end{Ex}
+    \begin{Ex}
+        Suppose $Y \sim \mathcal{N}(\B{X}\betav, \sigma^2\B{I})$. Find the distribution of $\Hbeta$.
+        \begin{sol}
+            Since $\Hbeta = (\T{\B{X}}\B{X})^{-1}\T{\B{X}}\B{Y}$, $\E(\Hbeta) = \betav$ and $\Var(\Hbeta) = \sigma^2 (\gram{X})^{-1}$. By \cref{normal-vector-trans}, 
+            \begin{equation*}
+                \Hbeta \sim \mathcal{N}(\betav, \sigma^2 (\gram{X})^{-1})
+            \end{equation*}
+        \end{sol}
+    \end{Ex}
+
+    \subsection{Estimation of \texorpdfstring{$\sigma^2$}{}}
+    Under the assumption of a linear model, we see that $\E(Y_i) = \beta_0 + \beta_ix_{i1} + \cdots + \beta_ix_{ik} = \T{\B{x}_i}\betav$, where $\T{\B{x}_i}$ is the $i^{\text{th}}$ column of $\B{X}$, and $\Var(Y_i) = \sigma^2 = \E\Big( (Y_i - \E(Y_i))^2 \Big) = \E\Big( (Y_i - \T{\B{x}_i}\betav)^2 \Big)$. However, $\betav$ is unknown. Intuitively, we can use $\Hbeta$ to estimate $\sigma^2$.
+    \begin{Def}\label{sample-variance}
+        We can estimate $\sigma^2$ by a corresponding average from the sample
+        \begin{equation}
+            s^2 = \cfrac{1}{n - p - 1}\sum_{i = 1}^n (Y_i - \T{\B{x}_i}\Hbeta)^2 = \cfrac{\text{SSE}(\B{Y})}{n - p - 1}
+        \end{equation}
+        where $n$ is the sample size and $p$ is the number of $x_i$'s.
+        \begin{Rem}
+            Here, the design matrix $\B{X}$ is an $n\times (p + 1)$ matrix with $\mathbbold{1}$ as its first column.
+        \end{Rem}
+    \end{Def}
+
+    \begin{Thm}
+        $s^2$ defined in \cref{sample-variance} is an unbiased estimator of $\sigma^2$.
+        \begin{proof}
+            Given $\E(\B{Y}) = \B{X}\betav$ and $\Var(\B{Y}) = \sigma^2 \B{I}$, by applying the property 8 in \cref{trace},
+            \begin{align*}
+                E(\T{\B{Y}}(\B{I} - \B{H})\B{Y}) &= \tr\Big( (\B{I} - \B{H}) \sigma^2 \Big) + \T{(\B{X}\betav)}(\B{I} - \B{H})\B{X}\betav\\
+                & = \sigma^2 \Big(n - \tr(\B{H})\Big) + \B{0}\quad \text{Since } \B{I} - \B{H} \text{ is the orthogonal projection matrix of } \text{Col}(\B{X})\\
+                & = \sigma^2 \big(n - \tr\Big(\B{X}(\T{\B{X}}\B{X})^{-1}\T{\B{X}} \Big)\big) = \sigma^2 n - \tr\Big(\T{\B{X}}\B{X}(\T{\B{X}}\B{X})^{-1} \Big)\\
+                & = \sigma^2 \Big(n - \tr(\B{I}_{p+1})\Big)\\
+                & = \sigma^2 (n - p - 1)
+            \end{align*}
+            Hence, $\E(SSE) = \sigma^2 (n - p - 1)$.
+        \end{proof}
+    \end{Thm}
+
+    \begin{Thm}
+        In a \textbf{normal} linear model, we can find an unbiased estimator for $\Var(\Hbeta)$
+        \begin{equation}
+            \widehat{\Var}(\Hbeta) = s^2 (\T{\B{X}}\B{X})^{-1}
+        \end{equation}
+        \begin{proof}
+            We know that $\Var(\Hbeta) = (\T{\B{X}}\B{X})^{-1}$,
+            \begin{equation}
+                \E(s^2 \B{I}) =  \sigma^2 (\T{\B{X}}\B{X})^{-1} = \Var(\Hbeta)
+            \end{equation}
+        \end{proof}
+    \end{Thm}

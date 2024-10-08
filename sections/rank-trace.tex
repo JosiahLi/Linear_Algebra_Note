@@ -1,0 +1,77 @@
+\section{Rank and Trace}
+\subsection{Rank}
+\begin{Def}
+    The \textbf{rank} of a matrix $A\in \mathbb{R}^{n\times p}$ is the number of its linearly independent columns (or rows), which is expressed as $\text{rank}(A)$.
+\end{Def}
+\noindent 
+Given a matrix $A\in \mathbb{R}^{n\times p}$, it has the following properties:
+\begin{enumerate}
+    \item $\text{rank}(A) = \min\{n, p \}$
+    \item $\text{rank}(AB) = \min\{\text{rank}(A), \text{rank}(B) \}$
+    \item Given two non-singular matrices $B\in\mathbb{R}^{n\times n}$ and $C\in\mathbb{R}^{p\times p}$:
+    \begin{equation}
+        \text{rank}(BA) = \text{rank}(AC) = \text{rank}(A)
+    \end{equation}
+    \item $\text{rank}(A^\top A) = \text{rank}(AA^{\top}) = \text{rank}(A) = \text{rank}(A^{\top})$
+\end{enumerate}
+Note that: property 4 illustrates that \textbf{multiplying A by a non-singular matrix does not change the rank of $A$}.
+
+\begin{Ex}
+    Show that if a matrix $A\in\mathbb{R}^{n\times p}$ with $n\geq p$ is of full column rank, then $A^{\top}A$ is non-singular.
+\end{Ex}
+\begin{proof}
+    Since $A$ is of full column rank and $n\geq p$, we have
+    \begin{equation*}
+        \text{rank}(A) = p = \text{rank}(A^\top A)
+    \end{equation*}
+    Since $A^\top A$ is a $p\times p$ matrix and has full column rank, it is non-singular.
+\end{proof}
+
+\begin{Ex}
+    Show that if a matrix $A\in\mathbb{R}^{n\times p}$ with $n\geq p$ is not of full column rank, then $A^{\top}A$ is singular.
+\begin{proof}
+    Since $A$ is not of full column rank, 
+    \begin{equation*}
+        \text{rank}(A) = \text{rank}(A^{\top} A) < p
+    \end{equation*}
+    It implies that $A$ is singular.
+\end{proof}
+\end{Ex}
+
+\begin{Ex}
+    Show that given a matrix $A\in\mathbb{R}^{n\times p}$ with $n < p$, $A^{\top}A$ is singular.
+    \begin{proof}
+        Since $\text{rank}(A) \leq \min\{n, p \}$,
+        \begin{equation*}
+            \text{rank}(A) = \text{rank}(A^{\top} A) \leq n < p
+        \end{equation*}
+        Since $A^\top A$ is not of full column rank, it is singular.
+    \end{proof}
+\end{Ex}
+
+\subsection{Trace}
+\begin{Def}
+    The trace of a square matrix $A\in \R^{n \times n}$ is the sum of diagonal elements of $A$. It is denoted $\tr(A) = \sum_{i = 1}^n = a_{ii}$.
+\end{Def}
+
+\begin{Thm}\label{trace}
+    The trace function $\tr(\cdot)$ has the following properties:
+    \begin{enumerate}
+        \item $\tr(cA \pm dB) = c\tr(A) \pm d\tr(B)$, where $c, d\in \R$.
+        \item Given two matrices $A\in\R^{n\times p}, B\in \R^{p\times n}$, then $\tr(AB) = \tr(BA)$
+        \begin{proof}
+            Let $t_i$ be the $i^{\text{th}}$ elements on the diagonal of $AB$. Then
+            \begin{equation*}
+                \tr(AB) = \sum_{i = 1}^n t_i = \sum_{i = 1}^n\sum_{j = 1}^p a_{ij}b_{ji} = \sum_{j = 1}^p \sum_{i = 1}^n b_{ji}a_{ij} = \tr(BA)
+            \end{equation*}
+            Note that $n$ is not required to be greater or equal to $p$.
+        \end{proof}
+
+    \item Given an $n\times p$ matrix, $A = \begin{bmatrix}
+        \B{a}_1 & \B{a}_2 & \cdots & \B{a}_p
+    \end{bmatrix}$, $\tr(\T{A}A) = \displaystyle \sum_{i = 1}^p \T{\B{a}}_i \B{a}_i$
+    \item Given an $n \times p$ matrix, $\tr(A\T{A}) = \displaystyle \sum_{i = 1}^ n \B{a}^{(i)} \B{a}_i$, where $\B{a}^{(1)}$ is the row vector of $A$.
+    \item By property 3 and 4, $\tr(\T{A}A) = \tr(A\T{A}) = \displaystyle \sum_{i = 1}^n\sum_{j = 1}^p a_{ij}^2$
+    \item $\tr(\E(\B{X})) = \E(\tr(\B{X}))$, where $\E$ represents the expectation of a random matrix.
+    \end{enumerate}
+\end{Thm}

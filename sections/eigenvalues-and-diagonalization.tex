@@ -1,0 +1,368 @@
+\section{Eigenvalues and Diagonalization}
+\subsection{Eigenvectors}
+\begin{Def}
+    Given a square matrix $A\in\mathbb{R}^{n\times n}$, there exists a vector $\mathbf{x}\in \Rn \setminus \{\mathbf{0}\}$ such that
+    \begin{equation} \label{eigen}
+        \exists \lambda \in \mathbb{R}:\ A\mathbf{x} = \lambda\mathbf{x}
+    \end{equation}
+    where $\lambda$ is called an \textbf{eigenvalue} of $A$; $\mathbf{x}$ is called an \textbf{eigenvector corresponding to $\lambda$}.
+\end{Def}
+
+\noindent 
+    The \cref{eigen} can be rewritten as
+    \begin{equation} \label{eigen-1}
+        (A - \lambda I)\mathbf{x} = \mathbf{0}
+    \end{equation}
+This implies that \textbf{the set of all solutions of \cref{eigen-1}} is just the null space $\text{Nul}(A - \lambda I)$. So this set is a \textit{subspace} of $\mathbb{R}^n$ and its called the \textbf{eigenspace} of $A$ corresponding to $\lambda$.
+
+\begin{Def}
+    A scalar $\lambda$ is an eigenvalue of a matrix $A\in\mathbb{R}^n$ if and only if $\lambda$ satisfies the \textbf{characteristic equation}:
+    \begin{equation}\
+        \text{det}(A - \lambda I) = 0
+    \end{equation}
+\end{Def}
+
+\begin{Rem}
+    $A\mathbf{x} = 0\mathbf{x}$ holds if and only if $A$ is singular. That is, \textbf{$0$ is an eigenvalue of $A$ in and only if $A$ is singular}.
+\end{Rem}
+
+\begin{Thm}
+    The eigenvalues of a \textbf{triangular matrix} are the entries on its main diagonal.
+\end{Thm}
+
+\begin{Thm}
+    If $\mathbf{v}_1, \cdots, \mathbf{v}_r$ are eigenvalues that correspond to distinct eigenvalues $\lambda_1, \lambda_2, \cdots, \lambda_r$, then the set $\{\mathbf{v}_1, \cdots, \mathbf{v}_r \}$ is 
+    \textbf{linearly independent}.
+\end{Thm}
+
+\subsection{Similarity}
+\begin{Def}\label{10-3}
+    If $A$ and $B$ are $n\times n$ matrices, then $A$ is similar to $B$ if there is a non-singular matrix $P$ such that
+    \begin{equation*}
+        P^{-1}AP = B
+    \end{equation*}
+\end{Def}
+
+\begin{Thm}
+    Given two matrices $A, B\in\mathbb{R}^{n\times n}$, if $A$ and $B$ are similar, then they have the same characteristic polynomial and hence the same eigenvalues(with the same multiplicities).
+    \begin{Rem}
+        However, $A$ and $B$ having the exactly same eigenvalues does not imply that $A$ and $B$ are similar.
+    \end{Rem}
+\end{Thm}
+
+\subsection{Diagonalization}
+In many cases, the eigenvalue-eigenvector information contained within a matrix $A$ can be displayed in a useful factorization for the form $A = PDP^{-1}$ where $D$ is a diagonal matrix. 
+\begin{Thm}
+    \textbf{The Diagonalization Theorem}: Given a matrix $A\in\mathbb{R}^{n\times n}$, $A$ is diagonalizable if and only if $A$ has $n$ linearly independent eigenvectors.
+    \begin{Rem}
+        In fact $A = PDP^{-1}$, if and only if the columns of $P$ are $n$ \textbf{linearly independent} eigenvectors of $A$. In this case, the diagonal entries of $D$ are eigenvalues of $A$ that correspond, resprectively, to the eigenvectors in $P$.
+    \end{Rem}
+\end{Thm}
+\noindent In other words, $A$ is diagonalizable if and only if there are enough eigenvectors to form a basis of $\mathbb{R}^n$, which is called an \textbf{eigenvector basis} of $\mathbb{R}^n$.
+
+\begin{Thm}
+    An $n\times n$ mateix with $n$ \textbf{distinct eigenvalues} is diagonalizable.
+\end{Thm}
+
+\begin{Thm}
+    Let $A$ be an $n\times n$ matrix whose distinct eigenvalues are $\lambda_1, \cdots, \lambda_p$.
+    Let $\text{dim}(\mathcal{E}(\lambda_k))$ denote the dimension of eigenspace for  $\lambda_k$. The matrix $A$ is diagonalizable if and only if
+    \begin{equation*}
+        \sum_{i = 1} ^{p} \text{dim}(\mathcal{E}(\lambda_i)) = n
+    \end{equation*}
+\end{Thm}
+
+\begin{Thm}
+    If $A$ with $p$ distinct eigenvalues is diagonalizable and $\mathcal{B}_k$ is a basis for the eigenspace corresponding to $\lambda_k$, then the total collection of vectors in the sets $\mathcal{B}_1, \cdots, \mathcal{B}_p$ forms an eigenvector basis in $\mathbb{R}^n$.
+\end{Thm}
+
+\subsection{Eigenvectors and Linear Transformation}
+We have already understood the simple linear transformation $A\mathbf{x}$. The goal of this section is to understand the nested transformation of $A = PDP^{-1}$.
+\begin{Def}
+    \textbf{Standard Matrix}:
+    Any Linear transformation $T: \mathbb{R}^p \mapsto \mathbb{R}^n$ can be implemented via left-multiplication by a matrix $A$, called the \textbf{standard matrix} of $T$.
+\end{Def}
+
+\noindent Let $V$ be a $p$-dimensional vector space, let $W$ be an $n$-dimensional vector space, and let $T$ be any linear transformation from $V$ to $W$. To associate a matrix with $T$, choose ordered bases $\mathcal{B}$ and $\mathcal{C}$ for $V$ and $W$, respectively.  
+\indent $\forall \mathbf{x}\in V$, the coordinate vector $[\mathbf{x}]_{\mathcal{B}}$ is in $\mathbb{R}^p$, and the coordinate vector of its image, $[T(\mathbf{x})]_{\mathcal{C}}$ is in $\mathbb{R}^n$.
+    if $\mathbf{x} = r_1\mathbf{b}_1 + r_1\mathbf{b}_2 + \cdots + r_1\mathbf{b}_p$, then 
+    \begin{equation*}
+        [\mathbf{x}]_{\mathcal{B}} = \begin{bmatrix}
+            r_1 \\
+            \vdots \\
+            r_p
+        \end{bmatrix}
+    \end{equation*} and 
+    \begin{equation}\label{10-4-1}
+        T(\mathbf{x}) = T( r_1\mathbf{b}_1 + r_1\mathbf{b}_2 + \cdots + r_1\mathbf{b}_p) = r_1T(\mathbf{b}_1) + r_2T(\mathbf{b}_2) + \cdots + r_pT(\mathbf{b}_p)
+    \end{equation}
+    Since the coordinate mapping from $W$ to $\mathbb{R}^n$ is linear, \cref{10-4-1} leads to
+    \begin{equation}\label{10-4-2}
+        [T(\mathbf{x})]_{\mathcal{C}} = r_1[T(\mathbf{b}_1)]_{\mathcal{C}} + r_2[T(\mathbf{b}_2)]_{\mathcal{C}} + \cdots + r_p[T(\mathbf{b}_p)]_{\mathcal{C}}
+    \end{equation}
+    Since $\mathcal{C}$-coordinate vecotrs are in $\mathbb{R}^n$, the vector \cref{10-4-2} can be written as a matrix equation, namely,
+    
+    \begin{equation}\label{10-4-3}
+        [T(\mathbf{x})]_{\mathcal{C}} = M[\mathbf{x}]_{\mathcal{B}}
+    \end{equation}     
+    where
+    \begin{equation*}
+        M = \begin{bmatrix}
+            T(\mathbf{b}_1)]_{\mathcal{C}} & T(\mathbf{b}_2)]_{\mathcal{C}} & \cdots & T(\mathbf{b}_p)]_{\mathcal{C}}
+        \end{bmatrix}
+    \end{equation*}
+    The matrix $M$ is a matrix representation of $T$, called the \textbf{matrix for $T$ relative to the bases $\mathcal{B}$ and $\mathcal{C}$}.
+    In the common case where $W$ is the same as $V$ and the basis $\mathcal{C}$ is the same as $\mathcal{B}$, the matrix $M$ in \cref{10-4-3} is called the \textbf{matrix for $T$ relative to $\mathcal{B}$}, or simply the \textbf{$\mathcal{B}$-matrix for $T$}, and is denoted by $[T]_{\mathcal{B}}$.
+        The $\mathcal{B}$-matrix for $T: V\to V$ satisfies:
+        \begin{equation*}
+            [T(\mathbf{x})]_{\mathcal{B}} = [T]_{\mathcal{B}}[\mathbf{x}]_{\mathcal{B}}
+        \end{equation*}
+    \begin{Thm}
+        \textbf{Diagonal Matrix Representation}:
+        Suppose $A = PDP^{-1}$, where $D$ is a diagonal $n\times n$ matrix. If $\mathcal{B}$ is the basis for $\mathbb{R}^n$ formed from the columns of $P$, then $D$ is the $\mathcal{B}$-matrix for the transformation.
+
+        \begin{proof} \label{10-8}
+            Let $\mathcal{B} = \{\mathbf{b}_1, \cdots, \mathbf{b}_n\}$ and $P = \begin{bmatrix}
+                \mathbf{b}_1 & \cdots & \mathbf{b}_n
+            \end{bmatrix}$. In this case, $P$ is the change-of-coordinates matrix $P_{\mathcal{B}}$ discussed in \cref{4-1}, where
+            \begin{equation*}
+                P[\mathbf{x}]_{\mathcal{B}} = \mathbf{x}\quad \text{and}\quad [\mathbf{x}]_{\mathcal{B}} = P^{-1}\mathbf{x}
+            \end{equation*}
+            If $T(\mathbf{x}) = A\mathbf{x}$ for $\mathbf{x} \in \mathbb{R}^n$, then
+            \begin{align*}
+                [T]_{\mathcal{B}} &= \begin{bmatrix}
+                    [T(\mathbf{b}_1)]_{\mathcal{B}} & \cdots & [T(\mathbf{b}_n)]_{\mathcal{B}}
+                \end{bmatrix}\\
+                & = \begin{bmatrix}
+                    [A\mathbf{b}_1]_{\mathcal{B}} & \cdots & [A\mathbf{b}_n]_{\mathcal{B}}
+                \end{bmatrix}\\
+                & = \begin{bmatrix}
+                    P^{-1}A\mathbf{b}_1 & \cdots & P^{-1}A\mathbf{b}_n
+                \end{bmatrix}\\
+                & = P^{-1}A \begin{bmatrix}
+                    \mathbf{b}_1 & \cdots & \mathbf{b}_n
+                \end{bmatrix}\\
+                & = P^{-1}AP = D
+            \end{align*}
+                 
+        \end{proof}
+    \end{Thm}
+
+    \begin{Rem}
+        The proof of \cref{10-8} didn't use the information that $D$ was diagonal. Hence, if $A$ is similar to a matrix $C$, with $A = PCP^{-1}$, then $C$ is the $\mathcal{B}$-matrix for the transformation $\mathbf{x}\mapsto A\mathbf{x}$ when the basis $\mathcal{B}$ is formed from the columns of $P$. Multiplying by such a matrix $A$  has the following interpretation: given a vector $\mathbf{x}\in V$
+        \begin{enumerate}
+            \item $P^{-1}\mathbf{x} \mapsto [\mathbf{x}]_{\mathcal{B}}$
+            \item $C[\mathbf{x}]_{\mathcal{B}} \mapsto [A\mathbf{x}]_{\mathcal{B}}$
+            \item $P[A\mathbf{x}]_{\mathcal{B}}\mapsto A\mathbf{x}$
+        \end{enumerate}
+        
+        
+        \begin{center}
+            \begin{tikzpicture}
+              \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+              {
+                 \B{x} & A\B{x} \\
+                 \left[\B{x} \right]_{\mathcal{B}} & \left[A\B{x} \right]_{\mathcal{B}} \\
+                };
+                
+              \path[-stealth]
+                (m-1-1) edge node [left] {$P^{-1}$} (m-2-1)
+                        edge [left] node [below] {$A$} (m-1-2)
+                (m-2-1.east|-m-2-2) edge node [below] {$C$} (m-2-2)
+                (m-2-2) edge node [right] {$P$} (m-1-2);
+            \end{tikzpicture}
+        \end{center}
+
+        
+        
+        Conversely, if $T:\mathbb{R}^n\to \mathbb{R}^n$ is defined by $T(\mathbf{x}) = A\mathbf{x}$, and if $\mathcal{B}$ is any basis for $\mathbb{R}^n$, then the $\mathcal{B}$-matrix for $T$ is similar to $A$. The \cref{10-8} show that if $P$ is the matrix whose columns come from the vectors in $\mathcal{B}$, then
+        \begin{equation*}
+            [T]_{\mathcal{B}} = P^{-1}AP
+        \end{equation*}
+        Thus, the set of all matrices similar to a matrix $A$ \textbf{coincides with the set of all matrix representations of the transformation $\mathbf{x}\mapsto A\mathbf{x}$}.
+    \end{Rem}
+
+    \subsection{Symmetric Matrices}
+    \begin{Def}
+        A \textbf{symmetric} matrix is a matrix $A$ such that $A^{\top} = A$. Note that such a matrix is necessarily square.
+
+    \end{Def}
+    \begin{Thm}
+        If $A$ is symmetric, then any two eigenvectors from different eigenspaces are orthogonal.
+
+        \begin{proof}
+            Suppose there are two eigenvectors $\mathbf{v}_1, \mathbf{v}_2$, respectively, corresponding to distinct eigenvalues $\lambda_1$ and $\lambda_2$. Consider the following equation:
+            \begin{align*}
+                \lambda _1 \mathbf{v}_1^{\top}\mathbf{v}_2 & = (A\mathbf{v}_1)^{\top} \mathbf{v}_2\\
+                & = \mathbf{v}_1^{\top} A^{\top}\mathbf{v}_2\\
+                & = \mathbf{v}_1^{\top} A\mathbf{v}_2\quad \text{since } A \text{ is a symmetric matrix}\\
+                & = \lambda _2 \mathbf{v}_1^{\top} \mathbf{v}_2
+            \end{align*}
+            We can get $(\lambda_1 - \lambda_2)\mathbf{v}_1^{\top} \mathbf{v}_2 = 0$. Since $\lambda_1 \neq \lambda_2$, $\mathbf{v}_1^{\top} \mathbf{v}_2$ must be $0$.
+        \end{proof}
+    \end{Thm}
+    \begin{Def}
+        \textbf{Orthogonally dianonalizable:} For an $n \times n$ matrix $A$, if there are an \textbf{orthogonal matrix} $P$ with ($P^{-1} = P^{\top}$) and a diagonal matrix $D$ such that 
+        \begin{equation}\label{10-6}
+            A = PDP^{\top} = PDP^{-1}
+        \end{equation}
+        then $A$ is said to be \textbf{Orthogonally dianonalizable}.
+
+        \begin{Rem}
+            Such a diagonalization requires $n$ \textbf{linearly independent} and \textbf{orthonormal eigenvectors}.
+            If $A$ is orthogonally diagonalizable as in \cref{10-6}, then
+            \begin{equation*}
+                A^{\top} = (PDP^{\top})^{\top} = PDP^{\top} = A
+            \end{equation*}
+            Thus, $A$ is symmetric.
+        \end{Rem}
+    \end{Def}
+
+    \begin{Thm}\label{orthogonally-dianonalizable}
+        An $n\times n$ matrix $A$ is orthogonally diagonalizable if and only if $A$ is a symmetric matrix.
+    \end{Thm}
+
+    \begin{Thm}\label{spectral-theorem}
+        \textbf{The Spectral Theorem for Symmetric Matrices}:
+        An $n \times n$ matrix $A$ has the following properties:
+        \begin{enumerate}
+            \item $A$ has $n$ real eigenvalues, counting multiplicities.
+            \item The dimension of the eigenspace for each eigenvalue $\lambda$ equals the multiplicity of $\lambda$ as a root of the characteristic equation.
+            \item  The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orthogonal.
+            \item $A$ is orthogonally diagonalizable.
+        \end{enumerate}
+    \end{Thm}
+
+    \begin{Thm}
+        \textbf{Spectral Decomposition}:
+        Suppose $A$ is orthogonally diagonalizable,
+        \begin{align*}
+            A =& PDP^{\top} = \begin{bmatrix}
+                [\mathbf{u}_1 & \cdots & \mathbf{u}_n] 
+            \end{bmatrix} \begin{bmatrix}
+                \lambda_1 & 0 & 0 & \cdots & 0 \\
+                \vdots & \vdots & \vdots & \ddots & \vdots \\
+                0 & 0 & 0 & \cdots & \lambda_n
+                \end{bmatrix} \begin{bmatrix}
+                    \mathbf{u}_1^{\top}\\
+                    \vdots\\
+                    \mathbf{u}_n^{\top}
+                \end{bmatrix}\\
+                & = \begin{bmatrix}
+                \lambda_1 \mathbf{u}_1 & \cdots & \lambda_n \mathbf{u}_n
+            \end{bmatrix} \begin{bmatrix}
+                    \mathbf{u}_1^{\top}\\
+                    \vdots\\
+                    \mathbf{u}_n^{\top}
+                \end{bmatrix}
+        \end{align*}
+        Using the \cref{sum-outer}, the sum of outer product representation:
+        \begin{equation}
+            A = \lambda_1\mathbf{u}_1\mathbf{u}_1^{\top} + \lambda_2\mathbf{u}_2\mathbf{u}_2^{\top} + \cdots + \lambda_n\mathbf{u}_n\mathbf{u}_n^{\top}
+        \end{equation}
+        This representation of $A$ is called a \textbf{spectral decomposition} of $A$. Note each $\mathbf{u}_i\mathbf{u}_1i{\top}$ is a projection matrix with rank $1$.
+    \end{Thm}
+    \subsection{Intuition of Unit Eigenvectors}
+    Suppose that a symmetric matrix $A\in\mathbb{R}^2$ with two \textit{unit} eigenvectors $\mathbf{v}_1$ and $\mathbf{v}_2$, which are orthogonal to each other.
+    \begin{enumerate}
+    \item 
+     We can find a unit circle that goes through the four points: $\mathbf{v}_1, \mathbf{v}_2, -\mathbf{v}_1, -\mathbf{v}_2$. After multiplying the four vectors by $A$, we can find an ellipse that goes through these fore vectors.
+    \item Suppose $A\in\mathbb{R}^{n\times n}$ can be diagonalized into 
+    \begin{equation*}
+        A = PDP^{-1}
+    \end{equation*}
+    Right-multiplying $A$ by $P$:
+    \begin{equation*}
+        AP =  \begin{bmatrix}
+            A\mathbf{v}_1 & A\mathbf{v}_2 
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            \lambda_1\mathbf{v}_1 & \lambda_2\mathbf{v}_2
+        \end{bmatrix}
+    \end{equation*}
+    We can find an ellipse that goes through the columns of $AP$. Actually $P$ is an orthogonal matrix, its effect is to perform \textbf{a rotational transformation}, mapping a coordinate vector relative to $\{\mathbf{v}_1, \mathbf{v}_2 \}$ to a vector in the standard basis. While the effect of the diagonal matrix $D$ is to perform \textbf{a scaling transformation}.
+    \item Consider the linear transformation $T(\mathbf{x}) = A\mathbf{x}$,
+    \begin{equation*}
+        A\mathbf{x} = PDP^{-1}\mathbf{x} = \mathbf{y}
+    \end{equation*}
+    $P^{-1}\mathbf{x} = [\mathbf{x}]_{\mathcal{B}}$ maps $\mathbf{x}$ into a new coordinate system with a set of orthonormal basis as its coordinate vectors, which corresponds to a \textbf{rotational action}. $D[\mathbf{x}]_{\mathcal{B}} = [\mathbf{y}]_{\mathcal{B}}$ scales the vector. $P[\mathbf{y}]_{\mathcal{B}}$ transforms $[\mathbf{y}]_{\mathcal{B}}$ back to standard basis.  
+
+    \item Multiplying $A$ by a vector or a matrix (a set of column vectors) corresponds to a sequence of operations: a rotation, followed by a scaling, and then a rotation back.
+    \end{enumerate} 
+
+    \subsection{Important Properties of Eigenvalues}
+    If $\mathbf{v}$ is an eigenvector of $A$ corresponding to eigenvalue $\lambda$, then
+    \begin{equation*}
+        A^2\mathbf{v} = AA\mathbf{v} = A\lambda \mathbf{v} = \lambda ^2 \mathbf{v}
+    \end{equation*}
+    We can generalize the equation above to 
+    \begin{equation}
+        A^k\mathbf{v} = \lambda ^k \mathbf{v}
+    \end{equation}
+    Suppose $A\in \mathbb{R}^{n\times n}$ has $n$ eigenvalues, then
+    \begin{equation}
+        \text{det}(A) = \prod_{i = 1}^n \lambda_i
+    \end{equation}
+    \begin{proof}
+        Let the characteristic equation of $A$ be
+        \begin{align*}
+            p(\lambda) = \text{det}(A - \lambda I) = (\lambda_1 - \lambda)\cdots (\lambda_n - \lambda)
+        \end{align*}
+        We can simply get the result by letting $\lambda$ be zero.
+    \end{proof}
+
+    \subsection{Spectral Decomposition on Gram Matrix}
+    Given a data matrix $X\in\mathbb{R}^{n\times p}$, its Gram matrix $X^\top X$ is symmetric and, therefore, orthogonally diagonalizable by \cref{orthogonally-dianonalizable}:
+    \begin{equation*}
+        G = X^\top X = PDP^{\top}
+    \end{equation*}
+    We can get the following equation:
+    \begin{equation*}
+        P^{\top} GP = \begin{bmatrix}
+            \mathbf{u}_1^\top X^{\top} X\mathbf{u}_1 & \mathbf{u}_1^\top X^{\top} X\mathbf{u}_2 & \cdots & \mathbf{u}_1^\top X^{\top} X\mathbf{u}_p\\
+            \cdots & \cdots & \ddots & \cdots\\
+            \mathbf{u}_p^\top X^{\top} X\mathbf{u}_1 & \mathbf{u}_p^\top X^{\top} X\mathbf{u}_2 & \cdots & \mathbf{u}_p^\top X^{\top} X\mathbf{u}_p
+        \end{bmatrix} = 
+        \begin{bmatrix}
+        \lambda_1 & 0 & 0 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \cdots & \lambda_n
+        \end{bmatrix}
+    \end{equation*}
+    Let $X\mathbf{u}_i = \mathbf{y}_i$, the $k^{\text{th}}$ entry of $\mathbf{y}_i$ is the projection of the $k^{\text{th}}$ data point (the $k^{\text{th}}$ row of $X$) onto the eigenvector $\mathbf{u}_i$.
+    \begin{equation*}
+        P^{\top}GP = \begin{bmatrix}
+            \mathbf{y}_1^\top \mathbf{y}_1 & \mathbf{y}_1^\top \mathbf{y}_2 & \cdots & \mathbf{y}_1^\top \mathbf{y}_p\\
+            \cdots & \cdots & \ddots & \cdots\\
+            \mathbf{y}_p^\top \mathbf{y}_1 & \mathbf{y}_p^\top \mathbf{y}_2& \cdots & \mathbf{y}_p^\top \mathbf{y}_p
+        \end{bmatrix} = D
+    \end{equation*}
+    For any $i \neq j$, we can see that $\mathbf{y}_i$ and $\mathbf{y}_j$ are orthogonal to each other. Meanwhile, $\lVert \mathbf{y_i} \rVert^2 = \lambda_i$, which means
+    \begin{equation*}
+        \sum_{j = 1}^{p} y_{ij}^2 = \lambda_i
+    \end{equation*}
+    That is, the sum of squares of the coordinates of each data point relative to $\mathbf{y}_i$ equals to $\lambda_i$. This means that the projections of data points (rows) of $X$ onto different eigenvectors of $G$ have different sums of squares. We can express $G$ in its spectral decomposition form:
+    \begin{equation}
+        G = \lambda_1\mathbf{u}_1\mathbf{u}_1^{\top} + \lambda_2\mathbf{u}_2\mathbf{u}_2^{\top} + \cdots + \lambda_n\mathbf{u}_n\mathbf{u}_n^{\top}
+    \end{equation}
+    The equation above indicates that \textbf{\textcolor{cyan}{the larger the eigenvalue, the more important the eigenvector}}, as the projections of data points onto it are larger.
+
+    \subsection{Change of Variable}
+    Suppose $A\in\Rnn$ has $n$ eigenvectors $\{\B{v}_1, \B{v}_2, \cdots, \B{v}_n \}$, which can form a basis $\mathcal{B}$ for $\Rn$. Let $\begin{bmatrix}
+        \B{v}_1 & \cdots & \B{v}_n
+    \end{bmatrix}$. Given a sequence $\{\B{x}_k\}$ satisfying 
+    \begin{equation*}
+        \B{x}_{k + 1} = A\B{x}_k
+    \end{equation*} which is called a difference equation. Define a new sequence $\{\B{y}_{k}\}$ by
+    \begin{equation*}
+        \B{y}_{k} = P^{-1}\B{x}_k,\quad \text{or equivalently,}\quad \B{x}_k = P\B{y}_k    \end{equation*}
+    $\B{y}_{k}$ is clearly the coordinate of $\B{x}_k$ relative to $\mathcal{B}$ by \cref{4-1}.
+    Substituting these relations into the equation $\B{x}_{k + 1} = A\B{x}_k$ and using the fact that $A = PDP^{-1}$:
+    \begin{equation*}
+        \B{x}_{k + 1} = AP\B{y}_{k} = PDP^{-1}P\B{y}_k = PD\B{y}_{k}
+    \end{equation*}
+    Left-multiplying the above equation by $P^{-1}$:
+    \begin{equation*}
+        P^{-1}\B{x}_{k + 1} =\B{y}_{k + 1} =  D\B{y}_k
+    \end{equation*}
+    The change of variable from $\B{x}_k$ to $\B{y}_k$ has \textbf{decoupled} the system of difference equations. Geometrically, the only effect on $\B{y}_k$ is scaling the vector, and each entry $y_{i}$ of $\B{y}_k$ is unaffected by the other entries. \textbf{\textcolor{orange}{Decoupling the system allows for the calculation in a new coordinate system, which demonstrates the power of linear algebra.}}

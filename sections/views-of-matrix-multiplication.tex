@@ -1,0 +1,18 @@
+\section{Views of Matrix Multiplication}
+    \subsection{Linear Combination of Columns}
+    Given two matrices, $A_{n \times p}$ and $B_{p \times m}$, each column of their product can be expressed as a linear combination of the columns of $A$.
+    \begin{equation}
+        AB = \begin{bmatrix}
+            A\mathbf{b}_1 & A\mathbf{b}_2 & \cdots &  A\mathbf{b}_m
+        \end{bmatrix}
+    \end{equation}
+
+    \subsection{Sum of outer products}
+    $AB$ can be expressed as a sum of outer products of $\mathbf{a}_i \mathbf{b}^{(i)}$, where $\mathbf{b}^{(i)}$ is the $i^{\text{th}}$ of $B$.
+
+    \begin{equation}\label{sum-outer}
+        AB = \sum_{i = 1}^{p} \mathbf{a}_i \mathbf{b}^{(i)}
+    \end{equation}
+    Notice that $\mathbf{a}_i \mathbf{b}^{(i)}$ is of rank 1 matrix, since each column of $\mathbf{a}_i \mathbf{b}^{(i)}$ is a multiple of $\mathbf{a}_i$.
+
+    \subsection{TODO: Linear Combination of Rows}

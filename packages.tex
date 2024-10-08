@@ -1,0 +1,47 @@
+%-----------pacakges begins----------
+%\usepackage[utf8]{inputenc}
+\usepackage{emoji}
+\usepackage{amsthm}
+\usepackage{amsmath,amsfonts,amssymb}
+\DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n} % \mathbbold{1}
+\usepackage{csquotes}
+\usepackage{geometry}
+\usepackage{xcolor} % coloring text
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\usepackage{mdframed}
+%\usepackage[colorlinks=false]{hyperref}
+\usepackage[hidelinks, unicode, psdextra]{hyperref} % does not make the reference outlinted.
+\usepackage[noabbrev, nameinlink]{cleveref} % to be loaded after hyperref (better to be loaded last)
+
+%----------------emoji--------------
+\setemojifont{twemoji.ttf}[Path=./fonts/]
+%------------------tikz lib-----------
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{quotes,angles}
+%----------configure the margins-----
+\geometry{
+    left=2.0cm,
+    right=2.0cm,
+    top=2.0cm,    % Adjust the top margin
+    bottom=2.0cm  % Adjust the bottom margin
+}
+%-----------------box-----------------
+% Define a global style for mdframed
+% the nobreak option prevents from splitting acorss pages.
+\mdfsetup{innertopmargin=0pt, skipabove=10pt, skipbelow=10pt, innerleftmargin=10pt, innerrightmargin=10pt, nobreak=true}
+% surround the amsmath environments
+\surroundwithmdframed{Thm}
+\surroundwithmdframed{Def}
+\surroundwithmdframed{Ex}
+
+%----------newtheorem specifies the configuration for Def environment.
+\theoremstyle{definition}
+\newtheorem{Def}{Definition}[section]
+\newtheorem{Ex}{Example}[section]
+\newtheorem{Thm}{Theorem}[section]
+\newtheorem{Rem}{Remark}[section]
+\newtheorem*{sol}{Solution}
+\numberwithin{equation}{section}

@@ -1,0 +1,64 @@
+\section{Products of Two vectors}
+\subsection{Inner Product}
+An inner product of $\mathbf{a}$ and $\mathbf{b}$  can be expressed in several ways:
+
+\begin{enumerate}
+    \item $\langle \mathbf{a}, \mathbf{b} \rangle$
+    \item $\mathbf{a}\cdot \mathbf{b}$
+    \item $\mathbf{a}^{\top}\mathbf{b}$
+\end{enumerate}
+
+\begin{Def}
+    \textbf{$L_2$ Norm:}
+    \begin{equation}
+        \norm{\B{x}} = \sqrt{\T{\B{x}}\B{x}} = \sqrt{\norm{\B{x}}^2}
+    \end{equation}
+    Actually, the $L_2$ norm can also be considered as Euclidean distance (length).
+\end{Def}
+An inner product can be expressed in terms of lengths and the angle between them.
+\begin{equation}
+    \mathbf{a}^\top \mathbf{b} = \lVert \mathbf{a} \rVert \lVert \mathbf{b} \rVert \cos \alpha 
+\end{equation}
+where $\alpha$ is the angle between $\mathbf{a}$ and $\mathbf{b}$, as shown in \cref{fig:inner-product}. Specially, if $\lVert \mathbf{a} \rVert = 1$, $\mathbf{a}^{\top}\mathbf{b}$ is said \textbf{the coordinate of $\mathbf{b}$ relative to $\mathbf{a}$}.
+\begin{figure}
+    \centering
+    \input{tikz/inner-product}
+    \caption{Inner product: $\T{\B{a}}\B{b}$}
+    \label{fig:inner-product}
+\end{figure}
+
+\begin{Thm}\label{CS-ine}
+    \textbf{Cauchy-Schwarz Inequality} Give two vectors $\B{x}, \B{y}\in \Rn$, then 
+    \begin{equation}
+        (\T{\B{x}}\B{y})^2 \leq \lVert \B{x}\rVert^2 \lVert \B{y}\rVert^2
+    \end{equation}
+    \begin{proof}
+        Let c = $\cfrac{\T{\B{x}}\B{y}}{\T{\B{x}}\B{x}}$. If $\B{x}$ is $\B{0}$, then the proof is immediately completed, and therefore suppose $\B{x}\neq \B{0}$. Expanding
+        \begin{align}
+            \lVert \B{y} - c\B{x}\rVert^2 &= \T{\B{y}}\B{y} - 2c\T{\B{x}}\B{y} + c^2\T{\B{x}}\B{x}\\
+            & = \T{\B{y}}\B{y} - 2\cfrac{(\T{\B{x}}\B{y})^2}{\T{\B{x}}\B{x}} + \cfrac{(\T{\B{x}}\B{y})^2}{\T{\B{x}}\B{x}}\\
+            & = \lVert \B{y} \rVert^2 - \cfrac{(\T{\B{x}}\B{y})^2}{\lVert \B{x} \rVert^2}\geq 0 \label{CS-ine-1}
+        \end{align}
+    \end{proof}
+\end{Thm}
+\begin{Thm}
+    If $(\T{\B{x}}\B{y})^2 = \lVert \B{x}\rVert^2 \lVert \B{y}\rVert^2$, then $\B{x}, \B{y}$ are linearly dependent.
+    \begin{proof}
+        By the \cref{CS-ine-1}, if $(\T{\B{x}}\B{y})^2 = \lVert \B{x}\rVert^2 \lVert \B{y}\rVert^2$, then $\lVert \B{y} - c\B{x}\rVert^2 = 0$, implying $\B{y} - c\B{x} = \B{0}$. Thus, $\B{y} = c\B{x}$.
+    \end{proof}
+\end{Thm}
+\subsection{Outer Product (Tensor Product)}
+An outer product takes as inputs two vectors and then produces a matrix:
+\begin{equation*}
+    \mathbf{a}\mathbf{b}^{\top} = \begin{bmatrix}
+        a_1\\
+        \vdots\\
+        a_n
+    \end{bmatrix} \mathbf{b}^{\top} = 
+    \begin{bmatrix}
+        a_1\mathbf{b}^{\top}\\
+        \vdots\\
+        a_n\mathbf{b}^{\top}
+    \end{bmatrix}
+\end{equation*}
+It can also be denoted by $\mathbf{a}\otimes \mathbf{b}$.

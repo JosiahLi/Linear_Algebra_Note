@@ -1,0 +1,210 @@
+\section{Orthogonality}
+\begin{Def}
+    Two vectors $\B{u}, \B{v}\in\Rn$ are \textbf{orthogonal} to each other if $\T{\B{u}}\B{v} = 0$ or $\T{\B{v}}\B{u} = 0$,
+\end{Def}
+\subsection{Orthogonal Complement}
+
+If a vector $\B{v}$ is orthogonal to every vector in a subspace $W$ of $\Rn$, then $\B{v}$ is said to be \textbf{orthogonal to $W$}. The set of all vectors $\B{v}$ that are orthogonal to $W$ is called the \textbf{orthogonal complement} of $W$.
+
+\begin{Def}
+    \textbf{Orthogonal Complement: }A subspace $V$ is the orthogonal complement of $W$, if
+    \begin{equation*}
+        W^\perp = \{\B{v}\in V \mid  \forall \B{u} \in W: \T{\B{v}}\B{u}  \}
+    \end{equation*}
+\end{Def}
+
+\begin{Def}
+    \textbf{Direct Sum}: Let $W_1$ and $W_2$ be subspaces of a vector space $V$, if 
+    \begin{equation*}
+        \forall \B{v}\in V: \B{v} = \underbrace{\B{w}_1 + \B{w}_2}_{\text{uniquely}}\quad \text{where } \B{w}_1\in W_1, \B{w}_2 \in W_2
+    \end{equation*}
+    then $V$ is called the \textbf{direct sum} of $W_1$ and $W_2$. In this case, we write $V = W_1 \oplus W_2$.
+\end{Def}
+\begin{Thm}
+    If $V = W_1\oplus W_2$, then $W_1 \cap W_2 = \{\B{0}\}$.
+    \begin{proof}
+        Let $\B{v}\in W_1 \cap W_2$. Since $\B{v}$ is also in $V$. Then
+        \begin{equation*}
+            \B{v} = \B{0} + \B{w_1}\quad \text{and}\quad \B{v} = \B{0} + \B{w}_2
+        \end{equation*}
+        with $\B{w}_1\in W_1$ and $\B{w}_2 \in W_2$. By the uniqueness of direct sum representations, we have $\B{w}_1 = \B{w}_2 = \B{0}$. 
+    \end{proof}
+\end{Thm}
+
+\begin{Thm}\label{projection-theorem}
+    If $W$ is a subspace of an inner product space $V$, then 
+    \begin{equation*}
+        V = W \oplus W^\perp\quad  \text{and}\quad  \text{dim}(V) = \text{dim}(W_1) + \text{dim}(W_2).
+    \end{equation*}
+\end{Thm}
+\begin{Thm}\label{5-3}
+    Let $A$ be an $m\times n$ matrix, then
+    \begin{equation}
+        \Big(\text{Row}(A) \Big)^\perp = \text{Nul}(A)\quad \text{and}\quad \Big(\text{Col}(A) \Big)^\perp = \text{Nul}(A^\top)
+    \end{equation}
+    By \cref{projection-theorem}, it is clear that
+    \begin{equation}
+        \text{dim}\Big(\text{Row}(A)\Big) + \text{dim}\Big(\text{Nul}(A)\Big) = m \quad \text{and}\quad \text{dim}\Big( \text{Col}(A)\Big) + \text{dim}\Big(\text{Nul}(\T{A}) \Big) = n
+    \end{equation}
+\end{Thm}
+\subsection{Orthogonal Projection}
+The orthogonal projection of $\mathbf{y}$ on $\mathbf{x}$ can be expressed as
+\begin{equation}\label{proj}
+    \text{proj}_{\mathbf{x}}(\mathbf{y}) = \cfrac{\mathbf{x}^{\top} \mathbf{y}}{\mathbf{x}^{\top} \mathbf{x}} \mathbf{x}
+\end{equation}
+
+\noindent The \cref{proj} can be written in a matrix-vector multiplication form:
+\begin{equation} \label{inner product}
+    \text{proj}_{\mathbf{x}}(\mathbf{y}) = \cfrac{\mathbf{x}(\mathbf{x}^{\top}\mathbf{y})}{\lVert \mathbf{x} \rVert^2}  = \cfrac{(\mathbf{x}\mathbf{x}^{\top})\mathbf{y}}{\lVert \mathbf{x} \rVert^2} = \bigg(\cfrac{\mathbf{x}}{\lVert \mathbf{x} \rVert} \otimes \cfrac{\mathbf{x}}{\lVert \mathbf{x} \rVert} \bigg) \mathbf{y}
+\end{equation}
+$\cfrac{\mathbf{x}}{\lVert \mathbf{x} \rVert} \otimes \cfrac{\mathbf{x}}{\lVert \mathbf{x} \rVert}$ is called \textbf{Projection Matrix}. 
+
+\begin{Ex}
+    Given two vectors $\mathbbold{1}, \mathbf{y}\in\mathbb{R}^n$, calculate the projection of $\mathbf{y}$ onto $\mathbbold{1}$.
+    \begin{sol}
+        Calculate the projection matrix
+        \begin{equation*}
+            \cfrac{\mathbbold{1}}{\rVert \mathbbold{1} \lVert} \otimes \cfrac{\mathbbold{1}}{\rVert \mathbbold{1} \lVert} = \cfrac{\mathbbold{1} \otimes \mathbbold{1}}{n} 
+        \end{equation*}
+        The projection vector of $\mathbf{y}$ onto $\mathbbold{1}$ is given by
+        \begin{equation*}
+            \cfrac{\mathbbold{1} \otimes \mathbbold{1}}{n} \mathbf{y} =\cfrac{1}{n} 
+            \begin{bmatrix}
+                \sum_{i = 1}^{n} y_i\\
+                \vdots\\
+                \sum_{i = 1}^{n} y_i
+            \end{bmatrix}
+            = \overline{y}\  \mathbbold{1}
+        \end{equation*}
+        That is, the projection vector of $\mathbf{y}$ onto $\mathbbold{1}$ is called \textbf{sample mean vector of $\mathbf{y}$}.
+        \begin{Rem}
+            The project matrix of $\mathbbold{1}$ is, in statistics, typically denoted by
+            \begin{equation} \label{H-0}
+                H_0 = \mathbbold{1}(\mathbbold{1}^{\top} \mathbbold{1})^{-1} \mathbbold{1}^{\top}
+            \end{equation}
+        The \textbf{Total Sum of Squares} in a linear model is defined as:
+        \begin{equation}\label{SST}
+            \text{SST} = \lVert \mathbf{y} - H_0\mathbf{y} \rVert^2 = \sum_{i = 1}^n (y_i - \overline{y})^2
+        \end{equation}
+        \end{Rem}
+    \end{sol}
+\end{Ex}
+
+\begin{Ex}
+    Let $X = (\mathbf{x}_1\  \cdots\ \mathbf{x}_n )^{\top}$, we can calculate the projection scalar of $\mathbf{x}_i^{\top}$ onto a unit vector $\mathbf{v}$
+    \begin{equation}
+    \mathbf{\alpha} = X\mathbf{v} = \begin{bmatrix}
+        \mathbf{x}_1 ^{\top} \mathbf{v}\\
+        \vdots\\
+        \mathbf{x}_n ^{\top} \mathbf{v}
+    \end{bmatrix}
+\end{equation}
+And we then can calculate the projection vectors on the unit vector $\mathbf{v}$
+\begin{equation}
+    Z = X\mathbf{v}\mathbf{v}^{\top} = 
+       \begin{bmatrix}
+        \mathbf{x}_1 ^{\top} \mathbf{v} \mathbf{v}^{\top}\\
+        \vdots\\
+        \mathbf{x}_n ^{\top} \mathbf{v} \mathbf{v}^{\top}
+    \end{bmatrix}
+    = XV = X(\mathbf{v} \otimes \mathbf{v})
+\end{equation}
+where $V$ is the projection matrix of $\mathbf{v}$. Note that the $i^\text{th}$ row, instead of the $i^{\text{th}}$ column, of $Z$ is the projection of $\mathbf{x}_i^{\top}$ on the unit vector $\mathbf{v}$.
+\end{Ex}
+
+\subsection{Orthogonal Matrix}
+An orthogonal matrix $V$ is \textbf{one that has an orthonormal set of vectors} as its columns.
+V has the following properties:
+\begin{enumerate}
+    \item $V^{\top}V = I = VV^{\top}$
+    \item$ V^{\top} = V^{-1}$
+    \item $V^{\top}$ is also an orthogonal matrix.
+    \item $\lVert V\mathbf{x} \rVert^2 = \lVert \mathbf{x}\rVert^2$
+\end{enumerate}
+$VV^{\top}$ can be viewed as
+\begin{equation}
+   VV^{\top} = \mathbf{v}_1 \otimes \mathbf{v}_1 + \cdots + \mathbf{v}_n \otimes \mathbf{v}_n = I
+\end{equation}
+Note also that left-multiply $VV^{\top}$ by $X$
+\begin{align}
+        XVV^{\top} &= X(\mathbf{v}_1 \otimes \mathbf{v}_1 + \cdots + \mathbf{v}_n \otimes \mathbf{v}_n)\\
+        & = X \mathbf{v}_1 \otimes \mathbf{v}_1 + \cdots + X \mathbf{v}_n \otimes \mathbf{v}_n\\
+        & = XI = X
+\end{align}
+Property 4 can be easily proved
+\begin{proof}
+    \begin{equation}
+        \lVert V\mathbf{x} \rVert^2 = (V\mathbf{x})^{\top}V\mathbf{x} = \mathbf{x}^{\top}V^{\top}V \mathbf{x} = \mathbf{x}^{\top}I \mathbf{x} =  \lVert \mathbf{x}\rVert^2
+    \end{equation}
+\end{proof}
+\noindent
+This property implies that \textbf{a linear transformation, whose transformation matrix is an orthogonal matrix, say $V^{\top}$, preserves the length and the angle}.
+
+\begin{Thm}\label{orthonormal-projection}
+    If $\{\mathbf{u}_1, \mathbf{u}_2, \cdots, \mathbf{u}_p \}$ is an orthonormal basis for a subspace $W$ of $\mathbb{R}^n$, then
+    \begin{equation*}
+        \text{proj}_{W}(\mathbf{y}) = (\mathbf{y}^{\top}\mathbf{u_1})\mathbf{u}_1 + (\mathbf{y}^{\top}\mathbf{u_2})\mathbf{u}_2 + \cdots + 
+        (\mathbf{y}^{\top}\mathbf{u_p})\mathbf{u}_p
+    \end{equation*}
+    Let $U = \begin{bmatrix}
+        \mathbf{u}_1 & \mathbf{u}_2  & \cdots & \mathbf{u}_p
+    \end{bmatrix}$
+    then
+    \begin{equation}
+        \forall \mathbf{y}\in \mathbb{R}^n: \text{proj}_{W}(\mathbf{y}) = UU^{\top}\mathbf{y}
+    \end{equation}
+\end{Thm}
+
+\subsection{The Gram-Schmidt Process and QR Factorization}
+    The Gram-Schmidt process is a simple algorithm for producing an orthogonal or orthonormal basis for any nonzero subspace of $\R^n$.
+    \begin{Thm}
+        Given a basis $\{\B{x}_1, \B{x}_2, \cdots, \B{x}_p \}$ for a nonzero subspace $W$ of $\R^n$, define
+        \begin{align*}
+            \B{v}_1 &= \B{x}_1\\
+            \B{v}_2 &= \B{x}_2 - \text{proj}_{\B{v}_1}(\B{x}_2)\\
+            \B{v}_3 &= \B{x}_3 - \text{proj}_{\B{v}_1}(\B{v}_3) - \text{proj}_{\B{v}_2}(\B{x}_3)\\
+            &\vdots \\
+            \B{v}_p &= \B{x}_p - \text{proj}_{\B{v}_1}(\B{x}_p) - \text{proj}_{\B{v}_2}(\B{x}_p) - \cdots - \text{proj}_{\B{v}_{p - 1}}(\B{x}_p)
+        \end{align*}
+        Then $\{ \B{v}_1,\B{v}_2, \cdots, \B{v}_p  \}$ is an orthogonal basis for $W$. In addition,
+        \begin{equation*}
+            \text{Span}\{  \B{v}_1,\B{v}_2, \cdots, \B{v}_p \} = \text{Span}\{ \B{x}_1, \B{x}_2, \cdots, \B{x}_p \}
+        \end{equation*}
+
+        \begin{Rem}
+            The theorem shows that any nonzero subspace $W$ of $\Rn$ has an orthogonal basis. We can reduce the orthogonal basis into an orthonormal basis, $\mathcal{U} = \{ \B{v}_1', \B{v}_2', \cdots, \B{v}_n' \}$, by letting
+            \begin{equation*}
+                \B{v}_i' = \cfrac{\B{v}_i}{\norm{\B{v}_i}}
+            \end{equation*}
+        \end{Rem}
+    \end{Thm}
+
+    \begin{Thm}
+        If $A$ is an $m\times n$ matrix with linearly independent columns, then $A$ can be factored as $A = QR$, where $Q\in\R^{m\times n}$ is a matrix whose columns form an \textbf{orthonormal basis} for $\text{Col}(A)$ and $R\in\R^{n \times n}$ is an upper triangular non-singular matrix with positive entries on its diagonal.
+        \begin{proof}
+            Let $\mathcal{B} = \{\B{x}_1, \B{x}_2,\cdots, \B{x}_n \}$ be a basis for $\text{Col}(A)$. We can find a set of orthonormal basis $\mathcal{U} =  \{ \B{u}_1, \B{u}_2, \cdots, \B{u}_n \}$ using Gram-Schmidt process. Let $Q = \begin{bmatrix}
+                \B{u}_1 &\B{u}_2 &\cdots & \B{u}_n
+            \end{bmatrix}$. Since $\B{x}_k$ is in $\text{Span}\{\B{x}_1, \cdots, \B{x}_k \} = \text{Span}\{\B{u}_1, \cdots, \B{u}_k \}$, there exists $r_{1k},\cdots, r_{kk}$ such that
+            \begin{equation}
+                \B{x}_k = r_{1k}\B{u}_1 + \cdots + r_{kk}\B{u}_k + 0\cdot \B{u}_{k + 1} + \cdots + 0\cdot \B{u}_{n}
+            \end{equation}  
+            We may assume that $r_{kk} > 0$. (If $r_{kk} < 0$, multiply both $r_{kk}$ and $\B{u}_k$ by $-1$.) Let 
+            \begin{equation*}
+                \B{r}_k = \begin{bmatrix}
+                    r_{1k} & \cdots & r_{kk} & 0 & \cdots & 0
+                \end{bmatrix}^\top
+            \end{equation*}
+            That is, $\B{x}_k = Q\B{r}_k$. Let $R = \begin{bmatrix}
+                \B{r}_1 & \cdots & \B{r}_n
+            \end{bmatrix}$. Then
+            \begin{equation*}
+                A = \begin{bmatrix}
+                    \B{x}_1 & \cdots & \B{x}_n
+                \end{bmatrix} = \begin{bmatrix}
+                    Q\B{r}_1 & \cdots & Q\B{r}_n
+                \end{bmatrix} = QR
+            \end{equation*} The fact that $R$ is non-singular follows easily from the fact the columns of $A$ are linearly independent.
+        \end{proof}
+    \end{Thm}
+
+    

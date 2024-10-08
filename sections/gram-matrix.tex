@@ -1,0 +1,45 @@
+\section{Gram Matrix}
+\subsection{Information carried by Gram Matrix}
+In the most cases, the data matrix, $A\in \R^{n\times p}$, is not square, and thus its inverse does not exist. For convenience of computation, we can \enquote{reduce} the data matrix into a square matrix:
+\begin{equation}
+    A^{\top}A = \begin{bmatrix}
+        \mathbf{a_1}^{\top}\mathbf{a_1} & \mathbf{a_1}^{\top}\mathbf{a_2} & \cdots & \mathbf{a_1}^{\top}\mathbf{a_p}\\
+        \vdots & \vdots & \cdots & \vdots\\
+        \mathbf{a_p}^{\top}\mathbf{a_1} & \mathbf{a_p}^{\top}\mathbf{a_2} & \cdots & \mathbf{a_p}^{\top}\mathbf{a_p}
+        \end{bmatrix}
+         = 
+        \begin{bmatrix}
+            \lVert \mathbf{a}_1\rVert \lVert \mathbf{a}_1\rVert\cos \theta_{1, 1}  & \lVert \mathbf{a}_1\rVert \lVert \mathbf{a}_2\rVert\cos \theta_{1, 2} & \cdots & \lVert \mathbf{a}_1\rVert \lVert \mathbf{a}_p\rVert\cos \theta_{1, p}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            \lVert \mathbf{a}_p\rVert \lVert \mathbf{a}_1\rVert\cos \theta_{p, 1}  & \lVert \mathbf{a}_p\rVert \lVert \mathbf{a}_2\rVert\cos \theta_{p, 2} & \cdot & \lVert \mathbf{a}_p\rVert \lVert \mathbf{a}_p\rVert\cos \theta_{p, p}
+        \end{bmatrix}
+\end{equation}
+Suppose that $n$ is larger than $p$, we can reduce $A$ into a relatively small matrix $G\in \mathbb{R}^{p\times p}$ which contains the necessary information about the columns vector of $A$. The necessary information of a column vector of $A$ consists of its length and its angles with the other column vectors, which is contained by $G$.
+\begin{Rem}
+    Although $G$ contains the necessary information for the column vectors of $X$, we cannot use this information to directly restore $X$ from $G$. However, we can find a collection of vectors with the same relations as those between the column vectors of $A$, by using a matrix called \textbf{cosine similarity matrix} and the \textbf{Choleskey Decomposition}.
+\end{Rem}
+
+\subsection{Cosine Similarity Matrix}
+    If we let $S$ be a diagonal matrix
+    \begin{equation*}
+        S = \begin{bmatrix}
+            \lVert \mathbf{a}_1 \rVert & 0 & \cdots & 0\\
+            0  & \lVert \mathbf{a}_2 \rVert & \cdots & 0\\
+            \vdots & \vdots & \cdots & \vdots\\
+            0  & 0 & \cdots & \lVert \mathbf{a}_p \rVert\\
+        \end{bmatrix}
+    \end{equation*}
+    We can get the \textbf{Cosine Similarity Matrix} $C$ for $G$:
+    \begin{equation*}
+        C = S^{-1}GS = 
+        \begin{bmatrix}
+            1  & \cos \theta_{1, 2} & \cdots & \cos \theta_{1, p}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            \cos \theta_{p, 1}  & \cdots & \cos\theta_{p, 2} & \cdot & 1
+        \end{bmatrix}
+    \end{equation*}
+    If the angles $\theta_{i, j}$ satisfies some conditions (TODO), $C$ can be Cholesky-decomposed into
+    \begin{equation*}
+        C = R^{\top}R 
+    \end{equation*}
+    where the columns of $R$ are \textbf{unit vectors that can reflect the relations between the column vectors of $X$}. $C$ and $G$ are called \textbf{similar} to each other by the \cref{10-3}.
